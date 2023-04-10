@@ -10,9 +10,10 @@ repositories {
 
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
-    api("org.apache.commons:commons-math3:3.6.1")
+    api("org.springframework.boot:spring-boot-starter-data-r2dbc:3.0.5")
+    api("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.2")
+    api("io.projectreactor.kotlin:reactor-kotlin-extensions:1.2.2")
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
-    implementation("com.google.guava:guava:31.1-jre")
     testImplementation(kotlin("test"))
 }
 
