@@ -2,6 +2,8 @@ name: Events-K CI
 
 on:
   push:
+    branches:
+      - '*'
     tags-ignore:
       - '*.*.*'
     paths-ignore:
