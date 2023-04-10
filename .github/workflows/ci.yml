@@ -45,14 +45,14 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           arguments: publish
-#      - name: Build with Gradle
-#        uses: gradle/gradle-build-action@v2
-#        with:
-#          arguments: build
-#      - name: Publish test report
-#        uses: dorny/test-reporter@v1
-#        if: success() || failure()
-#        with:
-#          name: Escape Camp test report
-#          path: build/test-results/**/*.xml
-#          reporter: java-junit
+      - name: Build with Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: build
+      - name: Publish test report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
+        with:
+          name: Escape Camp test report
+          path: build/test-results/**/*.xml
+          reporter: java-junit
