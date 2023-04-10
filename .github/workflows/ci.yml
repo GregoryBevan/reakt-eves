@@ -39,6 +39,8 @@ jobs:
           prerelease: false
       - name: Publish release
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
           RELEASE_VERSION: 1.0.0
         uses: gradle/gradle-build-action@v2
         with:
