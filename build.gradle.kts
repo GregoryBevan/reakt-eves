@@ -18,6 +18,12 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+
+    doFirst {
+        println("*** ENVIRONMENT VARIABLE DUMP ***")
+        environment.forEach { (k, v) -> println("${k}:${v}") }
+
+    }
 }
 
 publishing {
@@ -29,6 +35,15 @@ publishing {
                 username = System.getenv("GITHUB_ACTOR")
                 password = System.getenv("GITHUB_TOKEN")
             }
+        }
+    }
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "me.elgregos"
+            artifactId = "events-k"
+            version = System.getenv("github.event.milestone.title")
+
+            from(components["java"])
         }
     }
 }
