@@ -11,8 +11,7 @@ on:
     branches:
       - 'main'
 
-permissions:
-  checks: write
+permissions: write-all
 
 jobs:
   build:
