@@ -40,7 +40,7 @@ publishing {
         create<MavenPublication>("maven") {
             groupId = "me.elgregos"
             artifactId = "events-k"
-            version = System.getenv("github.event.milestone.title")
+            version = System.getenv("RELEASE_VERSION")
 
             from(components["java"])
         }
