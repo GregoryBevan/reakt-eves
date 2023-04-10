@@ -18,7 +18,6 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
-
     doFirst {
         println("*** ENVIRONMENT VARIABLE DUMP ***")
         environment.forEach { (k, v) -> println("${k}:${v}") }
