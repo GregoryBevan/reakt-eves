@@ -2,6 +2,7 @@ plugins {
     kotlin("jvm") version "1.8.20"
     `java-library`
     `maven-publish`
+    id("io.spring.dependency-management") version "1.0.12.RELEASE"
 }
 
 repositories {
@@ -9,21 +10,27 @@ repositories {
 }
 
 dependencies {
-    // This dependency is exported to consumers, that is to say found on their compile classpath.
-    api("org.springframework.boot:spring-boot-starter-data-r2dbc:3.0.5")
-    api("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.2")
-    api("io.projectreactor.kotlin:reactor-kotlin-extensions:1.2.2")
-    // This dependency is used internally, and not exposed to consumers on their own compile classpath.
+    api("com.github.java-json-tools:json-patch:1.13")
+    api("io.github.oshai:kotlin-logging-jvm:4.0.0-beta-22")
+
+    implementation("org.springframework.boot:spring-boot-starter-webflux")  {
+        version {
+            strictly("[2.7,)")
+            prefer("3.0.5")
+        }
+    }
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+    implementation("io.projectreactor.kotlin:reactor-kotlin-extensions:1.2.2")
+
     testImplementation(kotlin("test"))
+    testImplementation("io.mockk:mockk:1.13.5")
+    testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.25")
+    testImplementation("io.projectreactor:reactor-test:3.5.5")
 }
 
 tasks.test {
     useJUnitPlatform()
-    doFirst {
-        println("*** ENVIRONMENT VARIABLE DUMP ***")
-        environment.forEach { (k, v) -> println("${k}:${v}") }
-
-    }
 }
 
 publishing {
