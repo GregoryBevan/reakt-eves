@@ -1,7 +1,6 @@
-package fr.maifinternational.audace.libs.eventsourcing
+package me.elgregos.eventsk
 
 import com.fasterxml.jackson.databind.JsonNode
-import me.elgregos.eventsk.Event
 import me.elgregos.eventsk.libs.nowUTC
 import java.time.LocalDateTime
 import java.util.*

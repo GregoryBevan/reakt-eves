@@ -1,13 +1,28 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     kotlin("jvm") version "1.8.20"
+    kotlin("plugin.spring") version "1.8.20"
     `java-library`
     `maven-publish`
     id("io.spring.dependency-management") version "1.0.12.RELEASE"
 }
 
+java.sourceCompatibility = JavaVersion.VERSION_17
+
 repositories {
     mavenCentral()
 }
+
+sourceSets {
+    create("integrationTest") {
+        compileClasspath += sourceSets.test.get().output
+        runtimeClasspath += sourceSets.test.get().output
+    }
+}
+
+configurations["integrationTestRuntimeOnly"].extendsFrom(configurations.testRuntimeOnly.get())
+configurations["integrationTestImplementation"].extendsFrom(configurations.testImplementation.get())
 
 dependencies {
     api("com.github.java-json-tools:json-patch:1.13")
@@ -27,11 +42,37 @@ dependencies {
     testImplementation("io.mockk:mockk:1.13.5")
     testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.25")
     testImplementation("io.projectreactor:reactor-test:3.5.5")
+    "integrationTestImplementation"(project)
+    "integrationTestImplementation"("org.springframework.boot:spring-boot-starter-test:3.0.5")
+    "integrationTestImplementation"("org.junit.platform:junit-platform-suite")
+    "integrationTestImplementation"("io.projectreactor:reactor-test")
+    "integrationTestImplementation"("org.awaitility:awaitility:4.1.1")
+    "integrationTestImplementation"("org.awaitility:awaitility-kotlin:4.1.1")
 }
 
-tasks.test {
-    useJUnitPlatform()
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        freeCompilerArgs = listOf("-Xjsr305=strict")
+        jvmTarget = "17"
+    }
 }
+
+tasks.withType<Test> {
+    useJUnitPlatform()
+    testLogging {
+        events("passed", "skipped", "failed")
+    }
+}
+
+val integrationTest = tasks.register<Test>("integrationTest") {
+    description = "Runs the integration tests."
+    group = "verification"
+    testClassesDirs = sourceSets["integrationTest"].output.classesDirs
+    classpath = sourceSets["integrationTest"].runtimeClasspath
+    shouldRunAfter("test")
+}
+
+tasks.check { dependsOn(integrationTest) }
 
 publishing {
     repositories {

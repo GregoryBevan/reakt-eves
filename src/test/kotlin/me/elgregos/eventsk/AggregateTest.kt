@@ -1,12 +1,9 @@
-package fr.maifinternational.audace.libs.eventsourcing
+package me.elgregos.eventsk
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import io.mockk.every
 import io.mockk.mockk
-import me.elgregos.eventsk.EventStore
-import me.elgregos.eventsk.EventVersionException
-import me.elgregos.eventsk.JsonAggregate
 import me.elgregos.eventsk.libs.genericObjectMapper
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
