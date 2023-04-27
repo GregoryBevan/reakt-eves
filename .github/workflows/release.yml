@@ -30,11 +30,13 @@ jobs:
           prerelease: false
       - name: Publish release
         env:
+          RELEASE_VERSION: ${{ github.event.milestone.title }}
+          GPG_KEY: ${{secrets.GPG_KEY }}
+          GPG_PASSWORD: ${{secrets.GPG_PASSWORD }}
+          MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
-          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-          MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
-          RELEASE_VERSION: ${{ github.event.milestone.title }}
         uses: gradle/gradle-build-action@v2
         with:
           arguments: publish
