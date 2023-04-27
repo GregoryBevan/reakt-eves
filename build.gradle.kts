@@ -3,9 +3,10 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm") version "1.8.20"
     kotlin("plugin.spring") version "1.8.20"
+    id("io.spring.dependency-management") version "1.0.12.RELEASE"
     `java-library`
     `maven-publish`
-    id("io.spring.dependency-management") version "1.0.12.RELEASE"
+    signing
 }
 
 java.sourceCompatibility = JavaVersion.VERSION_17
@@ -74,8 +75,31 @@ val integrationTest = tasks.register<Test>("integrationTest") {
 
 tasks.check { dependsOn(integrationTest) }
 
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
 publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            groupId = "me.elgregos"
+            artifactId = "events-k"
+            version = System.getenv("RELEASE_VERSION")
+            pom {
+            }
+            from(components["java"])
+        }
+    }
     repositories {
+        maven {
+            name = "OSSRH"
+            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+            credentials {
+                username = System.getenv("MAVEN_USERNAME")
+                password = System.getenv("MAVEN_PASSWORD")
+            }
+        }
         maven {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/GregoryBevan/events-k")
@@ -85,13 +109,10 @@ publishing {
             }
         }
     }
-    publications {
-        create<MavenPublication>("maven") {
-            groupId = "me.elgregos"
-            artifactId = "events-k"
-            version = System.getenv("RELEASE_VERSION")
+}
 
-            from(components["java"])
-        }
-    }
+
+signing {
+    useInMemoryPgpKeys(System.getenv("GPG_KEY"), System.getenv("GPG_PASSWORD"))
+    sign(publishing.publications["mavenJava"])
 }
