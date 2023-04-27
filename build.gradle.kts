@@ -7,6 +7,7 @@ plugins {
     `java-library`
     `maven-publish`
     signing
+    id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
 }
 
 java.sourceCompatibility = JavaVersion.VERSION_17
@@ -80,6 +81,19 @@ java {
     withSourcesJar()
 }
 
+nexusPublishing {
+    useStaging
+    repositories {
+        sonatype {
+            stagingProfileId.set(System.getenv("SONATYPE_STAGING_PROFILE_ID"))
+            username.set(System.getenv("MAVEN_USERNAME"))
+            password.set(System.getenv("MAVEN_PASSWORD"))
+            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+        }
+    }
+}
+
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
@@ -88,7 +102,7 @@ publishing {
             version = System.getenv("RELEASE_VERSION")
             pom {
                 name.set("events-k")
-                description.set("Kotlin reactive library for event sourcing pattern")
+                description.set("Kotlin reactive library for easy event sourcing pattern integration in your Spring Webflux / Reactor projects")
                 url.set("https://github.com/GregoryBevan/events-k")
                 licenses {
                     license {
@@ -131,7 +145,6 @@ publishing {
         }
     }
 }
-
 
 signing {
     useInMemoryPgpKeys(System.getenv("GPG_KEY"), System.getenv("GPG_PASSWORD"))
