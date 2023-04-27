@@ -35,6 +35,7 @@ jobs:
           GPG_PASSWORD: ${{secrets.GPG_PASSWORD }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          SONATYPE_STAGING_PROFILE_ID: ${{ secrets.SONATYPE_STAGING_PROFILE_ID }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
         uses: gradle/gradle-build-action@v2
