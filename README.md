@@ -5,6 +5,11 @@
 # EventS-K 
 Kotlin reactive library to ease event sourcing pattern integration in your Spring Webflux / Reactor projects
 
+## Architecture
+
+![EventS-K architecture.jpg](resources%2FEventS-K%20architecture.jpg)
+
+
 ## More to come
 
 ## Acknowledgements

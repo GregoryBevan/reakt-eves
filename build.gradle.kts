@@ -102,7 +102,7 @@ publishing {
             version = System.getenv("RELEASE_VERSION")
             pom {
                 name.set("events-k")
-                description.set("Kotlin reactive library for easy event sourcing pattern integration in your Spring Webflux / Reactor projects")
+                description.set("Kotlin reactive library to ease event sourcing pattern integration in your Spring Webflux / Reactor projects")
                 url.set("https://github.com/GregoryBevan/events-k")
                 licenses {
                     license {
