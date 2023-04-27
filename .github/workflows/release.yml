@@ -40,9 +40,10 @@ jobs:
           GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: publish --max-workers 1 closeAndReleaseSonatypeStagingRepository
-      - name: Publish release
+          arguments: publish
+      - name: Finalize publications
         env:
+          RELEASE_VERSION: ${{ github.event.milestone.title }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           SONATYPE_STAGING_PROFILE_ID: ${{ secrets.SONATYPE_STAGING_PROFILE_ID }}
