@@ -87,6 +87,27 @@ publishing {
             artifactId = "events-k"
             version = System.getenv("RELEASE_VERSION")
             pom {
+                name.set("events-k")
+                description.set("Kotlin reactive library for event sourcing pattern")
+                url.set("https://github.com/GregoryBevan/events-k")
+                licenses {
+                    license {
+                        name.set("MIT License")
+                        url.set("https://opensource.org/license/mit/")
+                    }
+                }
+                developers {
+                    developer {
+                        id.set("GregoryBevan")
+                        name.set("Grégory Bévan")
+                        email.set("gregory.bevan@zenika.com")
+                    }
+                }
+                scm {
+                    connection.set("scm:git:git://github.com:GregoryBevan/events-k.git")
+                    developerConnection.set("scm:git:ssh://git@github.com:GregoryBevan/events-k.git")
+                    url.set("https://github.com/GregoryBevan/events-k.git")
+                }
             }
             from(components["java"])
         }
