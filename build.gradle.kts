@@ -27,8 +27,8 @@ configurations["integrationTestRuntimeOnly"].extendsFrom(configurations.testRunt
 configurations["integrationTestImplementation"].extendsFrom(configurations.testImplementation.get())
 
 dependencies {
-    api("com.github.java-json-tools:json-patch:1.13")
-    api("io.github.oshai:kotlin-logging-jvm:4.0.0-beta-22")
+    implementation("com.github.java-json-tools:json-patch:1.13")
+    implementation("io.github.oshai:kotlin-logging-jvm:4.0.0-beta-22")
 
     implementation("org.springframework.boot:spring-boot-starter-webflux")  {
         version {
@@ -36,9 +36,24 @@ dependencies {
             prefer("3.0.5")
         }
     }
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
-    implementation("io.projectreactor.kotlin:reactor-kotlin-extensions:1.2.2")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin") {
+        version {
+            strictly("[2.14,)")
+            prefer("2.15.0")
+        }
+    }
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310") {
+        version {
+            strictly("[2.14,)")
+            prefer("2.15.0")
+        }
+    }
+    implementation("io.projectreactor.kotlin:reactor-kotlin-extensions:1.2.2"){
+        version {
+            strictly("[1.1,)")
+            prefer("1.2.2")
+        }
+    }
 
     testImplementation(kotlin("test"))
     testImplementation("io.mockk:mockk:1.13.5")
