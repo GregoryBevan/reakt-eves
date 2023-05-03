@@ -1,5 +1,6 @@
-package me.elgregos.eventsk
+package me.elgregos.eventsk.infrastructure
 
+import me.elgregos.eventsk.domain.Event
 import reactor.core.publisher.Mono
 
 interface EventBus<IdType> {

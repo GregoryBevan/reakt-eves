@@ -8,6 +8,7 @@ plugins {
     `maven-publish`
     signing
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
+    `java-test-fixtures`
 }
 
 java.sourceCompatibility = JavaVersion.VERSION_17
@@ -26,16 +27,33 @@ sourceSets {
 configurations["integrationTestRuntimeOnly"].extendsFrom(configurations.testRuntimeOnly.get())
 configurations["integrationTestImplementation"].extendsFrom(configurations.testImplementation.get())
 
+extra["testcontainersVersion"] = "1.16.2"
+ext["junit-jupiter.version"] = "5.8.2"
+
+dependencyManagement {
+    imports {
+        mavenBom("org.testcontainers:testcontainers-bom:${property("testcontainersVersion")}")
+    }
+}
+
 dependencies {
     implementation("com.github.java-json-tools:json-patch:1.13")
     implementation("io.github.oshai:kotlin-logging-jvm:4.0.0-beta-22")
 
-    implementation("org.springframework.boot:spring-boot-starter-webflux")  {
+    implementation("org.springframework.boot:spring-boot-starter-webflux") {
         version {
             strictly("[2.7,)")
             prefer("3.0.5")
         }
     }
+
+    implementation("org.springframework.boot:spring-boot-starter-data-r2dbc") {
+        version {
+            strictly("[2.7,)")
+            prefer("3.0.5")
+        }
+    }
+
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin") {
         version {
             strictly("[2.14,)")
@@ -48,23 +66,49 @@ dependencies {
             prefer("2.15.0")
         }
     }
-    implementation("io.projectreactor.kotlin:reactor-kotlin-extensions:1.2.2"){
+    implementation("io.projectreactor.kotlin:reactor-kotlin-extensions:1.2.2") {
         version {
             strictly("[1.1,)")
             prefer("1.2.2")
         }
     }
+    implementation("io.r2dbc:r2dbc-postgresql:0.8.13.RELEASE")
 
     testImplementation(kotlin("test"))
     testImplementation("io.mockk:mockk:1.13.5")
     testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.25")
     testImplementation("io.projectreactor:reactor-test:3.5.5")
+
     "integrationTestImplementation"(project)
-    "integrationTestImplementation"("org.springframework.boot:spring-boot-starter-test:3.0.5")
-    "integrationTestImplementation"("org.junit.platform:junit-platform-suite")
+    "integrationTestImplementation"("io.projectreactor:reactor-test")
     "integrationTestImplementation"("io.projectreactor:reactor-test")
     "integrationTestImplementation"("org.awaitility:awaitility:4.1.1")
     "integrationTestImplementation"("org.awaitility:awaitility-kotlin:4.1.1")
+    "integrationTestRuntimeOnly"("org.liquibase:liquibase-core:4.17.2")
+    "integrationTestRuntimeOnly"("org.postgresql:postgresql:42.3.8")
+
+    testFixturesApi("org.springframework.boot:spring-boot-starter-test") {
+        version {
+            strictly("[2.7,)")
+            prefer("3.0.5")
+        }
+    }
+    testFixturesApi("org.springframework.boot:spring-boot-starter-data-r2dbc") {
+        version {
+            strictly("[2.7,)")
+            prefer("3.0.5")
+        }
+    }
+    testFixturesApi("org.testcontainers:junit-jupiter:${property("testcontainersVersion")}")
+    testFixturesApi("org.testcontainers:postgresql")
+    testFixturesApi("org.testcontainers:r2dbc")
+    testFixturesApi("org.junit.platform:junit-platform-suite")
+    testFixturesApi("com.fasterxml.jackson.datatype:jackson-datatype-jsr310") {
+        version {
+            strictly("[2.14,)")
+            prefer("2.15.0")
+        }
+    }
 }
 
 tasks.withType<KotlinCompile> {
@@ -97,15 +141,12 @@ java {
 }
 
 nexusPublishing {
-    useStaging
-    repositories {
-        sonatype {
-            stagingProfileId.set(System.getenv("SONATYPE_STAGING_PROFILE_ID"))
-            username.set(System.getenv("MAVEN_USERNAME"))
-            password.set(System.getenv("MAVEN_PASSWORD"))
-            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
-            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
-        }
+    repositories.sonatype {
+        stagingProfileId.set(System.getenv("SONATYPE_STAGING_PROFILE_ID"))
+        username.set(System.getenv("MAVEN_USERNAME"))
+        password.set(System.getenv("MAVEN_PASSWORD"))
+        nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+        snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
     }
 }
 

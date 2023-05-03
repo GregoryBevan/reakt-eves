@@ -1,4 +1,4 @@
-package me.elgregos.eventsk
+package me.elgregos.eventsk.domain
 
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.JsonNode
