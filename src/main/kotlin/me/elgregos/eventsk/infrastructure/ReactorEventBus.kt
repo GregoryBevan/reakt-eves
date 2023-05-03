@@ -1,6 +1,7 @@
-package me.elgregos.eventsk
+package me.elgregos.eventsk.infrastructure
 
 import io.github.oshai.KotlinLogging
+import me.elgregos.eventsk.domain.Event
 import org.springframework.scheduling.annotation.Async
 import reactor.core.publisher.BaseSubscriber
 import reactor.core.publisher.Sinks

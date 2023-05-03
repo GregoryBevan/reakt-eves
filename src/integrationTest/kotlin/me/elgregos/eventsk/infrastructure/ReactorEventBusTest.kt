@@ -1,8 +1,10 @@
-package me.elgregos.eventsk
+package me.elgregos.eventsk.infrastructure
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import me.elgregos.eventsk.config.BaseIntegrationTest
+import me.elgregos.eventsk.domain.Event
+import me.elgregos.eventsk.domain.testEvent
 import me.elgregos.eventsk.libs.genericObjectMapper
 import org.awaitility.kotlin.await
 import org.springframework.beans.factory.annotation.Autowired

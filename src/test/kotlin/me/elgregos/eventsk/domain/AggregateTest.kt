@@ -1,4 +1,4 @@
-package me.elgregos.eventsk
+package me.elgregos.eventsk.domain
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo

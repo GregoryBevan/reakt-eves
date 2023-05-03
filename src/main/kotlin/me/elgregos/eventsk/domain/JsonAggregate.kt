@@ -1,4 +1,4 @@
-package me.elgregos.eventsk
+package me.elgregos.eventsk.domain
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.github.fge.jsonpatch.mergepatch.JsonMergePatch

@@ -1,4 +1,4 @@
-package me.elgregos.eventsk
+package me.elgregos.eventsk.domain
 
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
