@@ -11,7 +11,10 @@ plugins {
     `java-test-fixtures`
 }
 
+group = "me.elgregos"
+version = System.getenv("RELEASE_VERSION")
 java.sourceCompatibility = JavaVersion.VERSION_17
+
 
 repositories {
     mavenCentral()
@@ -26,6 +29,7 @@ sourceSets {
 
 configurations["integrationTestRuntimeOnly"].extendsFrom(configurations.testRuntimeOnly.get())
 configurations["integrationTestImplementation"].extendsFrom(configurations.testImplementation.get())
+
 
 extra["testcontainersVersion"] = "1.16.2"
 ext["junit-jupiter.version"] = "5.8.2"
@@ -150,6 +154,10 @@ nexusPublishing {
     }
 }
 
+val javaComponent = components["java"] as AdhocComponentWithVariants
+javaComponent.withVariantsFromConfiguration(configurations["testFixturesApiElements"]) { skip() }
+javaComponent.withVariantsFromConfiguration(configurations["testFixturesRuntimeElements"]) { skip() }
+
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
@@ -179,7 +187,7 @@ publishing {
                     url.set("https://github.com/GregoryBevan/events-k.git")
                 }
             }
-            from(components["java"])
+            from(javaComponent)
         }
     }
     repositories {

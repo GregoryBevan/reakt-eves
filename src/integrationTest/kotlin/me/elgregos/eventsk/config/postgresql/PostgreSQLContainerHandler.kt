@@ -1,4 +1,4 @@
-package me.elgregos.eventsk.extension.postgresql
+package me.elgregos.eventsk.config.postgresql
 
 import org.testcontainers.containers.PostgreSQLContainer
 

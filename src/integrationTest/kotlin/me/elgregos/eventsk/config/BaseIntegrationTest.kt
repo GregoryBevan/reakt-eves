@@ -1,7 +1,7 @@
 package me.elgregos.eventsk.config
 
 import me.elgregos.eventsk.TestConfig
-import me.elgregos.eventsk.extension.postgresql.PostgreSQLExtension
+import me.elgregos.eventsk.config.postgresql.PostgreSQLExtension
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.annotation.DirtiesContext
