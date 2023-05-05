@@ -1,4 +1,4 @@
-package me.elgregos.eventsk.extension.postgresql
+package me.elgregos.eventsk.config.postgresql
 
 import org.junit.jupiter.api.extension.AfterAllCallback
 import org.junit.jupiter.api.extension.BeforeAllCallback
