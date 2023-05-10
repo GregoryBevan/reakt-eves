@@ -47,14 +47,14 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webflux") {
         version {
             strictly("[2.7,)")
-            prefer("3.0.5")
+            prefer("3.0.6")
         }
     }
 
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc") {
         version {
             strictly("[2.7,)")
-            prefer("3.0.5")
+            prefer("3.0.6")
         }
     }
 
@@ -77,6 +77,7 @@ dependencies {
         }
     }
     implementation("io.r2dbc:r2dbc-postgresql:0.8.13.RELEASE")
+    implementation("org.projectlombok:lombok:1.18.26")
 
     testImplementation(kotlin("test"))
     testImplementation("io.mockk:mockk:1.13.5")
@@ -84,17 +85,20 @@ dependencies {
     testImplementation("io.projectreactor:reactor-test:3.5.5")
 
     "integrationTestImplementation"(project)
-    "integrationTestImplementation"("io.projectreactor:reactor-test")
+    "integrationTestImplementation"("org.testcontainers:postgresql")
     "integrationTestImplementation"("io.projectreactor:reactor-test")
     "integrationTestImplementation"("org.awaitility:awaitility:4.1.1")
     "integrationTestImplementation"("org.awaitility:awaitility-kotlin:4.1.1")
+    "integrationTestRuntimeOnly"("org.junit.platform:junit-platform-suite")
+    "integrationTestRuntimeOnly"("org.testcontainers:junit-jupiter:${property("testcontainersVersion")}")
+    "integrationTestRuntimeOnly"("org.testcontainers:r2dbc")
     "integrationTestRuntimeOnly"("org.liquibase:liquibase-core:4.17.2")
     "integrationTestRuntimeOnly"("org.postgresql:postgresql:42.3.8")
 
     testFixturesApi("org.springframework.boot:spring-boot-starter-test") {
         version {
             strictly("[2.7,)")
-            prefer("3.0.5")
+            prefer("3.0.6")
         }
     }
     testFixturesApi("org.springframework.boot:spring-boot-starter-data-r2dbc") {
@@ -103,16 +107,14 @@ dependencies {
             prefer("3.0.5")
         }
     }
-    testFixturesApi("org.testcontainers:junit-jupiter:${property("testcontainersVersion")}")
-    testFixturesApi("org.testcontainers:postgresql")
-    testFixturesApi("org.testcontainers:r2dbc")
-    testFixturesApi("org.junit.platform:junit-platform-suite")
     testFixturesApi("com.fasterxml.jackson.datatype:jackson-datatype-jsr310") {
         version {
             strictly("[2.14,)")
             prefer("2.15.0")
         }
     }
+    testFixturesCompileOnly("org.projectlombok:lombok:1.18.26")
+    testFixturesAnnotationProcessor("org.projectlombok:lombok:1.18.26")
 }
 
 tasks.withType<KotlinCompile> {
