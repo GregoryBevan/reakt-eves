@@ -1,7 +1,9 @@
-package me.elgregos.eventsk.domain;
+package me.elgregos.eventsk.domain.event;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.EqualsAndHashCode;
+import me.elgregos.eventsk.domain.Event;
+import me.elgregos.eventsk.domain.entity.User;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -22,6 +24,10 @@ public sealed abstract class UserEvent extends Event<UUID> {
 
     @EqualsAndHashCode(callSuper = true)
     public static final class UserCreated extends UserEvent {
+
+        public UserCreated(User user, LocalDateTime createdAt, UUID createdBy) {
+            this(UUID.randomUUID(), null, 1, createdAt, createdBy, user.id(), user.toJson());
+        }
 
         public UserCreated(UUID id,
                            Long sequenceNum,

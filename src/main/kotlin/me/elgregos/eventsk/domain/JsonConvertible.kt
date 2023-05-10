@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import me.elgregos.eventsk.libs.genericObjectMapper
 
 interface JsonConvertible {
+
     fun toJson(): JsonNode {
         return try {
             genericObjectMapper.readTree(genericObjectMapper.writeValueAsString(this))

@@ -30,26 +30,42 @@ abstract class EventEntity<E : Event<IdType>, IdType>(
         isNew = true
     }
 
-    fun toEvent(clazz: Class<E>): E =
-        clazz.permittedSubclasses
-        .first { it.simpleName == eventType }
-        .let {
-            it.declaredConstructors[0]!!.newInstance(
-                getId(),
-                sequenceNum,
-                version,
-                createdAt,
-                createdBy,
-                aggregateId,
-                event
-            ) as E
-        }
+    fun toEvent(eventClass: Class<E>, idClass: Class<IdType>): E =
+        eventClass.permittedSubclasses
+            .first { it.simpleName == eventType }
+            .let {
+                it.getConstructor(
+                    UUID::class.java,
+                    Long::class.javaObjectType,
+                    Int::class.javaObjectType,
+                    LocalDateTime::class.java,
+                    idClass,
+                    idClass,
+                    JsonNode::class.java
+                ).newInstance(
+                    getId(),
+                    sequenceNum,
+                    version,
+                    createdAt,
+                    createdBy,
+                    aggregateId,
+                    event
+                ) as E
+            }
 
     inline fun <reified E : Event<IdType>, reified IdType> toEvent(): E {
         return E::class.java.permittedSubclasses
             .first { it.simpleName == eventType }
             .let {
-                it.declaredConstructors[0]!!.newInstance(
+                it.getConstructor(
+                    UUID::class.java,
+                    Long::class.javaObjectType,
+                    Int::class.java,
+                    LocalDateTime::class.java,
+                    IdType::class.java,
+                    IdType::class.java,
+                    JsonNode::class.java
+                ).newInstance(
                     getId(),
                     sequenceNum,
                     version,

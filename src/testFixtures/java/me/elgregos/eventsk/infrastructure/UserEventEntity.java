@@ -4,7 +4,7 @@ package me.elgregos.eventsk.infrastructure;
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import me.elgregos.eventsk.domain.UserEvent;
+import me.elgregos.eventsk.domain.event.UserEvent;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
