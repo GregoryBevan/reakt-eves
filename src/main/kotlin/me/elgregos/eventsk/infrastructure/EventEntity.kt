@@ -9,7 +9,7 @@ import java.time.LocalDateTime
 import java.util.*
 
 
-abstract class EventEntity<E: Event<IdType>, IdType>(
+abstract class EventEntity<E : Event<IdType>, IdType>(
     @Id private val id: UUID,
     open val sequenceNum: Long?,
     open val version: Int,
@@ -30,7 +30,53 @@ abstract class EventEntity<E: Event<IdType>, IdType>(
         isNew = true
     }
 
-    abstract fun toEvent(): E
+    fun toEvent(eventClass: Class<E>, idClass: Class<IdType>): E =
+        eventClass.permittedSubclasses
+            .first { it.simpleName == eventType }
+            .let {
+                it.getConstructor(
+                    UUID::class.java,
+                    Long::class.javaObjectType,
+                    Int::class.javaObjectType,
+                    LocalDateTime::class.java,
+                    idClass,
+                    idClass,
+                    JsonNode::class.java
+                ).newInstance(
+                    getId(),
+                    sequenceNum,
+                    version,
+                    createdAt,
+                    createdBy,
+                    aggregateId,
+                    event
+                ) as E
+            }
+
+    inline fun <reified E : Event<IdType>, reified IdType> toEvent(): E {
+        return E::class.java.permittedSubclasses
+            .first { it.simpleName == eventType }
+            .let {
+                it.getConstructor(
+                    UUID::class.java,
+                    Long::class.javaObjectType,
+                    Int::class.java,
+                    LocalDateTime::class.java,
+                    IdType::class.java,
+                    IdType::class.java,
+                    JsonNode::class.java
+                ).newInstance(
+                    getId(),
+                    sequenceNum,
+                    version,
+                    createdAt,
+                    createdBy,
+                    aggregateId,
+                    event
+                ) as E
+            }
+    }
+
 
     override fun getId() = id
 }
