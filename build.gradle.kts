@@ -77,8 +77,7 @@ dependencies {
             prefer("1.2.2")
         }
     }
-    implementation("io.r2dbc:r2dbc-postgresql:0.8.13.RELEASE")
-    implementation("org.projectlombok:lombok:1.18.26")
+    implementation("org.postgresql:r2dbc-postgresql:1.0.1.RELEASE")
 
     testImplementation(kotlin("test"))
     testImplementation("io.mockk:mockk:1.13.5")
