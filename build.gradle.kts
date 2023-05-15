@@ -41,7 +41,9 @@ dependencyManagement {
 }
 
 dependencies {
-    implementation("com.github.java-json-tools:json-patch:1.13")
+    implementation("com.github.java-json-tools:json-patch:1.13") {
+        exclude("com.fasterxml.jackson.core", "jackson-databind")
+    }
     implementation("io.github.oshai:kotlin-logging-jvm:4.0.0-beta-27")
     implementation("org.yaml:snakeyaml:2.0")
 
