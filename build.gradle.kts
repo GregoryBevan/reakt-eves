@@ -42,18 +42,19 @@ dependencyManagement {
 
 dependencies {
     implementation("com.github.java-json-tools:json-patch:1.13")
-    implementation("io.github.oshai:kotlin-logging-jvm:4.0.0-beta-22")
+    implementation("io.github.oshai:kotlin-logging-jvm:4.0.0-beta-27")
+    implementation("org.yaml:snakeyaml:2.0")
 
     implementation("org.springframework.boot:spring-boot-starter-webflux") {
         version {
-            strictly("[2.7,)")
+            strictly("[2.7.11,)")
             prefer("3.0.6")
         }
     }
 
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc") {
         version {
-            strictly("[2.7,)")
+            strictly("[2.7.11,)")
             prefer("3.0.6")
         }
     }
@@ -97,16 +98,20 @@ dependencies {
 
     testFixturesApi("org.springframework.boot:spring-boot-starter-test") {
         version {
-            strictly("[2.7,)")
+            strictly("[2.7.11,)")
             prefer("3.0.6")
         }
     }
     testFixturesApi("org.springframework.boot:spring-boot-starter-data-r2dbc") {
         version {
-            strictly("[2.7,)")
-            prefer("3.0.5")
+            strictly("[2.7.11,)")
+            prefer("3.0.6")
         }
     }
+    testFixturesApi("org.testcontainers:junit-jupiter:${property("testcontainersVersion")}")
+    testFixturesApi("org.testcontainers:postgresql")
+    testFixturesApi("org.testcontainers:r2dbc")
+    testFixturesApi("org.junit.platform:junit-platform-suite")
     testFixturesApi("com.fasterxml.jackson.datatype:jackson-datatype-jsr310") {
         version {
             strictly("[2.14,)")
