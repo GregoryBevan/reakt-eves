@@ -1,12 +1,16 @@
 package me.elgregos.eventsk.infrastructure
 
 import me.elgregos.eventsk.domain.Event
+import me.elgregos.eventsk.domain.EventRepository
 import org.springframework.data.r2dbc.repository.R2dbcRepository
+import reactor.core.publisher.Flux
+import reactor.core.publisher.Mono
 
-interface EventEntityRepository<EE: EventEntity<E, IdType>, E: Event<IdType>, IdType>: R2dbcRepository<EE, IdType>
+interface EventEntityRepository<EE: EventEntity<E, IdType>, E: Event<IdType>, IdType: Any>:
+    EventRepository<EE, E, IdType>,R2dbcRepository<EE, IdType> {
+    override fun insert(eventEntity: EE): Mono<EE> = save(eventEntity.also { it.markNew() })
 
-fun <T: EventEntityRepository<EE, E, IdType>, EE: EventEntity<E, IdType>, E: Event<IdType>, IdType> T.insert(eventEntity: EE) =
-    save(eventEntity.also { it.markNew() })
+    override fun insertAll(eventEntities: List<EE>) = saveAll(eventEntities.onEach { it.markNew() })
 
-fun <T: EventEntityRepository<EE, E, IdType>, EE: EventEntity<E, IdType>, E: Event<IdType>, IdType> T.insertAll(eventEntities: List<EE>) =
-    saveAll(eventEntities.onEach { it.markNew() })
+    override fun findByAggregateId(aggregateId: IdType): Flux<EE>
+}

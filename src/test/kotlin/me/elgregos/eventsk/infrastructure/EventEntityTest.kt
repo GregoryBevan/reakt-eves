@@ -2,8 +2,8 @@ package me.elgregos.eventsk.infrastructure
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import me.elgregos.eventsk.domain.TestEvent
-import me.elgregos.eventsk.domain.testCreatedEvent
+import me.elgregos.eventsk.domain.FakeEvent
+import me.elgregos.eventsk.domain.fakeCreatedEvent
 import me.elgregos.eventsk.libs.genericObjectMapper
 import java.util.*
 import kotlin.test.Test
@@ -11,11 +11,38 @@ import kotlin.test.Test
 class EventEntityTest {
 
     @Test
-    fun shouldConvertEventEntityToEvent() {
+    fun `should convert event entity to event`() {
         val eventId = UUID.randomUUID()
         val event = genericObjectMapper.createObjectNode().put("field1", "value1")
-        val testEvent = testCreatedEvent(eventId, 1, UUID.randomUUID(), UUID.randomUUID(), event)
-        val testEventEntity = TestEventEntity.fromEvent(testEvent)
-        assertThat(testEventEntity.toEvent<TestEvent, UUID>()).isEqualTo(testEvent)
+        val fakeCreated = fakeCreatedEvent(eventId, 1, UUID.randomUUID(), UUID.randomUUID(), event)
+        val fakeEventEntity = FakeEventEntity(fakeCreated.eventId, fakeCreated.sequenceNum, fakeCreated.version, fakeCreated.createdAt, fakeCreated.createdBy, fakeCreated.eventType, fakeCreated.aggregateId, fakeCreated.event)
+        assertThat(fakeEventEntity.toEvent<FakeEvent, UUID>()).isEqualTo(fakeCreated)
+    }
+
+    @Test
+    fun `should convert event entity to event based on class`() {
+        val eventId = UUID.randomUUID()
+        val event = genericObjectMapper.createObjectNode().put("field1", "value1")
+        val fakeCreated = fakeCreatedEvent(eventId, 1, UUID.randomUUID(), UUID.randomUUID(), event)
+        val fakeEventEntity = FakeEventEntity(fakeCreated.eventId, fakeCreated.sequenceNum, fakeCreated.version, fakeCreated.createdAt, fakeCreated.createdBy, fakeCreated.eventType, fakeCreated.aggregateId, fakeCreated.event)
+        assertThat(fakeEventEntity.toEvent(FakeEvent::class)).isEqualTo(fakeCreated)
+    }
+
+    @Test
+    fun `should convert event to event entity`() {
+        val eventId = UUID.randomUUID()
+        val event = genericObjectMapper.createObjectNode().put("field1", "value1")
+        val fakeCreated = fakeCreatedEvent(eventId, 1, UUID.randomUUID(), UUID.randomUUID(), event)
+        val fakeEventEntity = FakeEventEntity(fakeCreated.eventId, fakeCreated.sequenceNum, fakeCreated.version, fakeCreated.createdAt, fakeCreated.createdBy, fakeCreated.eventType, fakeCreated.aggregateId, fakeCreated.event)
+        assertThat(EventEntity.fromEvent<FakeEventEntity, FakeEvent, UUID>(fakeCreated)).isEqualTo(fakeEventEntity)
+    }
+
+    @Test
+    fun `should convert event to event entity based on classes`() {
+        val eventId = UUID.randomUUID()
+        val event = genericObjectMapper.createObjectNode().put("field1", "value1")
+        val fakeCreated = fakeCreatedEvent(eventId, 1, UUID.randomUUID(), UUID.randomUUID(), event)
+        val fakeEventEntity = FakeEventEntity(fakeCreated.eventId, fakeCreated.sequenceNum, fakeCreated.version, fakeCreated.createdAt, fakeCreated.createdBy, fakeCreated.eventType, fakeCreated.aggregateId, fakeCreated.event)
+        assertThat(EventEntity.fromEvent(fakeCreated, FakeEventEntity::class)).isEqualTo(fakeEventEntity)
     }
 }

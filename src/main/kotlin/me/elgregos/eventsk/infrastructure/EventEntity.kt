@@ -7,9 +7,11 @@ import org.springframework.data.annotation.Transient
 import org.springframework.data.domain.Persistable
 import java.time.LocalDateTime
 import java.util.*
+import kotlin.reflect.KClass
+import kotlin.reflect.full.primaryConstructor
 
 
-abstract class EventEntity<E : Event<IdType>, IdType>(
+open class EventEntity<E : Event<IdType>, IdType>(
     @Id private val id: UUID,
     open val sequenceNum: Long?,
     open val version: Int,
@@ -53,6 +55,21 @@ abstract class EventEntity<E : Event<IdType>, IdType>(
                 ) as E
             }
 
+    fun toEvent(eventClass: KClass<E>): E =
+        eventClass.sealedSubclasses
+            .first { it.simpleName == eventType }
+            .let {
+                it.primaryConstructor?.call(
+                    getId(),
+                    sequenceNum,
+                    version,
+                    createdAt,
+                    createdBy,
+                    aggregateId,
+                    event
+                ) as E
+            }
+
     inline fun <reified E : Event<IdType>, reified IdType> toEvent(): E {
         return E::class.java.permittedSubclasses
             .first { it.simpleName == eventType }
@@ -77,9 +94,48 @@ abstract class EventEntity<E : Event<IdType>, IdType>(
             }
     }
 
-
     override fun getId() = id
+
+    companion object {
+        inline fun <reified EE : EventEntity<E, IdType>, reified E : Event<IdType>, reified IdType> fromEvent(event: E): EE =
+            EE::class.java.getConstructor(
+                UUID::class.java,
+                Long::class.javaObjectType,
+                Int::class.java,
+                LocalDateTime::class.java,
+                IdType::class.java,
+                String::class.java,
+                IdType::class.java,
+                JsonNode::class.java
+            ).newInstance(
+                event.id,
+                event.sequenceNum,
+                event.version,
+                event.createdAt,
+                event.createdBy,
+                event.eventType,
+                event.aggregateId,
+                event.event
+            )
+
+        fun <EE : EventEntity<E, IdType>, E : Event<IdType>, IdType : Any> fromEvent(
+            event: E,
+            eventEntityClass: KClass<EE>
+        ): EE = eventEntityClass.primaryConstructor?.call(
+                event.id,
+                event.sequenceNum,
+                event.version,
+                event.createdAt,
+                event.createdBy,
+                event.eventType,
+                event.aggregateId,
+                event.event
+            ) as EE
+
+    }
+
 }
+
 
 
 
