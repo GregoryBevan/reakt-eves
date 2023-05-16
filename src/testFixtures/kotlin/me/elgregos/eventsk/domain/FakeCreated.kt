@@ -5,7 +5,7 @@ import me.elgregos.eventsk.libs.nowUTC
 import java.time.LocalDateTime
 import java.util.*
 
-sealed class TestEvent(
+sealed class FakeEvent(
     id: UUID,
     sequenceNum: Long?,
     version: Int,
@@ -18,7 +18,7 @@ sealed class TestEvent(
     id, sequenceNum, version, createdAt, createdBy, eventType, aggregateId, event
 ), JsonConvertible {
 
-    data class TestCreated(
+    data class FakeCreated(
         val eventId: UUID = UUID.randomUUID(),
         override val sequenceNum: Long? = null,
         override val version: Int,
@@ -26,21 +26,21 @@ sealed class TestEvent(
         override val createdBy: UUID,
         override val aggregateId: UUID = UUID.randomUUID(),
         override val event: JsonNode
-    ) : TestEvent(
+    ) : FakeEvent(
         eventId,
         sequenceNum,
         version,
         createdAt,
         createdBy,
-        TestCreated::class.simpleName!!,
+        FakeCreated::class.simpleName!!,
         aggregateId,
         event
     )
 
 }
 
-fun testCreatedEvent(eventId: UUID, version: Int, createdBy: UUID, aggregateId: UUID, event: JsonNode) =
-    TestEvent.TestCreated(
+fun fakeCreatedEvent(eventId: UUID, version: Int, createdBy: UUID, aggregateId: UUID, event: JsonNode) =
+    FakeEvent.FakeCreated(
         eventId = eventId,
         version = version,
         createdBy = createdBy,

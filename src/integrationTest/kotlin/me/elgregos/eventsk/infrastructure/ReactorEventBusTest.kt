@@ -4,7 +4,7 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import me.elgregos.eventsk.config.BaseIntegrationTest
 import me.elgregos.eventsk.domain.Event
-import me.elgregos.eventsk.domain.testCreatedEvent
+import me.elgregos.eventsk.domain.fakeCreatedEvent
 import me.elgregos.eventsk.libs.genericObjectMapper
 import org.awaitility.kotlin.await
 import org.springframework.beans.factory.annotation.Autowired
@@ -32,7 +32,7 @@ internal class ReactorEventBusTest : BaseIntegrationTest() {
     @Test
     fun `should receive no event if no subscriber added`() {
         reactorEventPublisher.publish(
-            testCreatedEvent(
+            fakeCreatedEvent(
                 UUID.randomUUID(),
                 1,
                 UUID.randomUUID(),
@@ -49,7 +49,7 @@ internal class ReactorEventBusTest : BaseIntegrationTest() {
     fun `should receive event if subscriber added`() {
         testReactorEventSubscriber.subscribe()
         val event =
-            testCreatedEvent(
+            fakeCreatedEvent(
                 UUID.randomUUID(),
                 1,
                 UUID.randomUUID(),
@@ -69,14 +69,14 @@ internal class ReactorEventBusTest : BaseIntegrationTest() {
         testReactorEventSubscriber.subscribe()
         val events =
             listOf(
-                testCreatedEvent(
+                fakeCreatedEvent(
                     UUID.randomUUID(),
                     1,
                     UUID.randomUUID(),
                     UUID.randomUUID(),
                     genericObjectMapper.createObjectNode().put("field1", "value1")
                 ),
-                testCreatedEvent(
+                fakeCreatedEvent(
                     UUID.randomUUID(),
                     1,
                     UUID.randomUUID(),

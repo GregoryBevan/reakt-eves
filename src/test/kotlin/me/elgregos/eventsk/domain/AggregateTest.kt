@@ -14,7 +14,7 @@ import kotlin.test.Test
 
 internal class AggregateTest {
 
-    private lateinit var eventStore: EventStore<TestEvent, UUID>
+    private lateinit var eventStore: EventStore<FakeEvent, UUID>
 
     @BeforeTest
     fun setUp() {
@@ -35,7 +35,7 @@ internal class AggregateTest {
             .`as`(StepVerifier::create)
             .assertNext {
                 assertThat(it).isEqualTo(
-                    testCreatedEvent(eventId, 1, createdBy, aggregateId, genericObjectMapper.createObjectNode().put("field1", "value1"))
+                    fakeCreatedEvent(eventId, 1, createdBy, aggregateId, genericObjectMapper.createObjectNode().put("field1", "value1"))
                         .copy(createdAt = it.createdAt)
                 )
             }
@@ -58,7 +58,7 @@ internal class AggregateTest {
             .`as` { StepVerifier.create(it) }
             .assertNext {
                 assertThat(it).isEqualTo(
-                    testCreatedEvent(eventId1, 1, createdBy, aggregateId, genericObjectMapper.createObjectNode().put("field1", "value1"))
+                    fakeCreatedEvent(eventId1, 1, createdBy, aggregateId, genericObjectMapper.createObjectNode().put("field1", "value1"))
                         .copy(createdAt = it.createdAt)
                 )
             }
@@ -68,7 +68,7 @@ internal class AggregateTest {
             .`as` { StepVerifier.create(it) }
             .assertNext {
                 assertThat(it).isEqualTo(
-                    testCreatedEvent(eventId2, 2, createdBy, aggregateId, genericObjectMapper.createObjectNode().put("field2", "value2"))
+                    fakeCreatedEvent(eventId2, 2, createdBy, aggregateId, genericObjectMapper.createObjectNode().put("field2", "value2"))
                         .copy(createdAt = it.createdAt)
                 )
             }
@@ -170,11 +170,11 @@ internal class AggregateTest {
             .verifyComplete()
     }
 
-    private fun storedEvents(aggregateId: UUID): Flux<TestEvent> = Flux.fromIterable(
+    private fun storedEvents(aggregateId: UUID): Flux<FakeEvent> = Flux.fromIterable(
         listOf(
-            testCreatedEvent(UUID.randomUUID(),1, UUID.fromString("ff7474d7-c91d-458a-b7a1-1a0a67a430f3"), aggregateId, genericObjectMapper.createObjectNode().put("field1", "value1")),
-            testCreatedEvent(UUID.randomUUID(),2, UUID.fromString("ff7474d7-c91d-458a-b7a1-1a0a67a430f3"), aggregateId, genericObjectMapper.createObjectNode().put("field2", "value2")),
-            testCreatedEvent(UUID.randomUUID(), 3, UUID.fromString("ff7474d7-c91d-458a-b7a1-1a0a67a430f3"), aggregateId, genericObjectMapper.createObjectNode().put("field1", "value3"))
+            fakeCreatedEvent(UUID.randomUUID(),1, UUID.fromString("ff7474d7-c91d-458a-b7a1-1a0a67a430f3"), aggregateId, genericObjectMapper.createObjectNode().put("field1", "value1")),
+            fakeCreatedEvent(UUID.randomUUID(),2, UUID.fromString("ff7474d7-c91d-458a-b7a1-1a0a67a430f3"), aggregateId, genericObjectMapper.createObjectNode().put("field2", "value2")),
+            fakeCreatedEvent(UUID.randomUUID(), 3, UUID.fromString("ff7474d7-c91d-458a-b7a1-1a0a67a430f3"), aggregateId, genericObjectMapper.createObjectNode().put("field1", "value3"))
         )
     )
 
@@ -182,19 +182,19 @@ internal class AggregateTest {
 
 internal class AggregateExample(
     private val aggregateId: UUID,
-    eventStore: EventStore<TestEvent, UUID>
-) : JsonAggregate<TestEvent, UUID>(aggregateId, eventStore) {
+    eventStore: EventStore<FakeEvent, UUID>
+) : JsonAggregate<FakeEvent, UUID>(aggregateId, eventStore) {
 
     fun generateOneEvent(eventId: UUID, createdBy: UUID) =
         nextVersion()
             .map {
-                testCreatedEvent(eventId, it, createdBy, aggregateId, genericObjectMapper.createObjectNode().put("field$it", "value$it"))
+                fakeCreatedEvent(eventId, it, createdBy, aggregateId, genericObjectMapper.createObjectNode().put("field$it", "value$it"))
             }
             .flatMap { applyNewEvent(it) }
 
     fun generateOneEventWithBadVersion(eventId: UUID, createdBy: UUID) =
         Mono.just(
-            testCreatedEvent(eventId, 2, createdBy, aggregateId, genericObjectMapper.createObjectNode().put("field1", "value1"))
+            fakeCreatedEvent(eventId, 2, createdBy, aggregateId, genericObjectMapper.createObjectNode().put("field1", "value1"))
         )
             .flatMap { applyNewEvent(it) }
 }

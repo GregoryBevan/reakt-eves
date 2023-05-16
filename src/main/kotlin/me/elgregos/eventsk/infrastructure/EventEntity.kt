@@ -77,8 +77,30 @@ abstract class EventEntity<E : Event<IdType>, IdType>(
             }
     }
 
-
     override fun getId() = id
+
+    companion object {
+        inline fun <reified EE: EventEntity<E, IdType>, reified E: Event<IdType>, reified IdType> fromEvent(event: E): EE =
+            EE::class.java.getConstructor(
+                UUID::class.java,
+                Long::class.javaObjectType,
+                Int::class.java,
+                LocalDateTime::class.java,
+                IdType::class.java,
+                String::class.java,
+                IdType::class.java,
+                JsonNode::class.java
+            ).newInstance(
+                event.id,
+                event.sequenceNum,
+                event.version,
+                event.createdAt,
+                event.createdBy,
+                event.eventType,
+                event.aggregateId,
+                event.event
+            )
+    }
 }
 
 
