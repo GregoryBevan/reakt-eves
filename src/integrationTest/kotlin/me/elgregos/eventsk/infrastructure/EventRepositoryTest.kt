@@ -74,6 +74,3 @@ internal class EventRepositoryTest: BaseIntegrationTest() {
         }
     }
 }
-
-
-interface FakeEventRepository: EventEntityRepository<FakeEventEntity, FakeEvent, UUID>

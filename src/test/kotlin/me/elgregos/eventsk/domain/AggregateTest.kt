@@ -177,7 +177,6 @@ internal class AggregateTest {
             fakeCreatedEvent(UUID.randomUUID(), 3, UUID.fromString("ff7474d7-c91d-458a-b7a1-1a0a67a430f3"), aggregateId, genericObjectMapper.createObjectNode().put("field1", "value3"))
         )
     )
-
 }
 
 internal class AggregateExample(

@@ -7,7 +7,7 @@ import org.springframework.data.relational.core.mapping.Table
 import java.time.LocalDateTime
 import java.util.*
 
-@Table(name = "test_event")
+@Table(name = "fake_event")
 data class FakeEventEntity(
     @get:JvmName("id") val id: UUID,
     override val sequenceNum: Long? = null,
