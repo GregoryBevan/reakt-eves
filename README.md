@@ -3,7 +3,7 @@
 [![ReaKt.EveS Release](https://github.com/GregoryBevan/ReaKt.EveS/actions/workflows/release.yml/badge.svg)](https://github.com/GregoryBevan/ReaKt.EveS/actions/workflows/release.yml)
 
 <p align="center">
-<img src="resources/reakteves-logo.svg" width="70%" height="70%" alt="reakteves-logo">
+<img src="resources/reakteves-logo.svg" width="50%" height="50%" alt="reakteves-logo">
 </p>
 
 # ReaKt.EveS
