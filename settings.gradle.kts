@@ -1,1 +1,1 @@
-rootProject.name = "ReaKt.EveS"
+rootProject.name = "reakt-eves"
