@@ -1,23 +1,11 @@
-#bcdbdf
-<span class="ml-1 d-inline-block border circle color-border-subtle"style="background-color: #bcdbdf; height: 8px; width: 8px;">
-</span>
+#### $\textcolor{#bcdbdf}{\textsf{&#9632; Colors work}}$
 
-#235784
-<span class="ml-1 d-inline-block border circle color-border-subtle"style="background-color: #235784; height: 8px; width: 8px;">
-</span>
+#### $\textcolor{#235784}{\textsf{&#9632; Colors work}}$
 
-#deeeef
-<span class="ml-1 d-inline-block border circle color-border-subtle"style="background-color: #deeeef; height: 8px; width: 8px;">
-</span>
+#### $\textcolor{#deeeef}{\textsf{&#9632; Colors work}}$
 
-#99c8ce
-<span class="ml-1 d-inline-block border circle color-border-subtle"style="background-color: #99c8ce; height: 8px; width: 8px;">
-</span>
+#### $\textcolor{#99c8ce}{\textsf{&#9632; Colors work}}$
 
-#2e72ac
-<span class="ml-1 d-inline-block border circle color-border-subtle"style="background-color: #2e72ac; height: 8px; width: 8px;">
-</span>
+#### $\textcolor{#2e72ac}{\textsf{&#9632; Colors work}}$
 
-#183c5c
-<span class="ml-1 d-inline-block border circle color-border-subtle"style="background-color: #183c5c; height: 8px; width: 8px;">
-</span>
+#### $\textcolor{#183c5c}{\textsf{&#9632; Colors work}}$
