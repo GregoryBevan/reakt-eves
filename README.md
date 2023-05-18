@@ -1,13 +1,14 @@
-[![Events-K CI](https://github.com/GregoryBevan/events-k/actions/workflows/ci.yml/badge.svg)](https://github.com/GregoryBevan/events-k/actions/workflows/ci.yml)
+[![ReaKt.EveS CI](https://github.com/GregoryBevan/ReaKt.EveS/actions/workflows/ci.yml/badge.svg)](https://github.com/GregoryBevan/ReaKt.EveS/actions/workflows/ci.yml)
 
-[![Events-K Release](https://github.com/GregoryBevan/events-k/actions/workflows/release.yml/badge.svg)](https://github.com/GregoryBevan/events-k/actions/workflows/release.yml)
+[![ReaKt.EveS Release](https://github.com/GregoryBevan/ReaKt.EveS/actions/workflows/release.yml/badge.svg)](https://github.com/GregoryBevan/ReaKt.EveS/actions/workflows/release.yml)
 
-# EventS-K 
+![reakteves-logo.svg](resources%2Freakteves-logo.svg)
+# ReaKt.EveS
 Kotlin reactive library to ease event sourcing pattern integration in your Spring Webflux / Reactor projects
 
 ## Architecture
 
-![EventS-K architecture.jpg](resources%2FEventS-K%20architecture.jpg)
+![architecture.jpg](resources%2Farchitecture.jpg)
 
 
 ## More to come
