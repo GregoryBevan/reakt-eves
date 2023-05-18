@@ -1,1 +1,1 @@
-rootProject.name = "events-k"
+rootProject.name = "ReaKt.EveS"

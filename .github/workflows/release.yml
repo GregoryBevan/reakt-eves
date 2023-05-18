@@ -1,4 +1,4 @@
-name: Release Events-K
+name: Release ReaKt.EveS
 
 on:
   milestone:

@@ -170,12 +170,12 @@ publishing {
     publications {
         create<MavenPublication>("mavenJava") {
             groupId = "me.elgregos"
-            artifactId = "events-k"
+            artifactId = "reakt-eves"
             version = System.getenv("RELEASE_VERSION")
             pom {
-                name.set("events-k")
+                name.set("reakt-eves")
                 description.set("Kotlin reactive library to ease event sourcing pattern integration in your Spring Webflux / Reactor projects")
-                url.set("https://github.com/GregoryBevan/events-k")
+                url.set("https://github.com/GregoryBevan/ReaKt.EveS.git")
                 licenses {
                     license {
                         name.set("MIT License")
@@ -190,9 +190,9 @@ publishing {
                     }
                 }
                 scm {
-                    connection.set("scm:git:git://github.com:GregoryBevan/events-k.git")
-                    developerConnection.set("scm:git:ssh://git@github.com:GregoryBevan/events-k.git")
-                    url.set("https://github.com/GregoryBevan/events-k.git")
+                    connection.set("scm:git:git://github.com:GregoryBevan/ReaKt.EveS.git")
+                    developerConnection.set("scm:git:ssh://git@github.com:GregoryBevan/ReaKt.EveS.git")
+                    url.set("https://github.com/GregoryBevan/ReaKt.EveS.git")
                 }
             }
             from(javaComponent)
@@ -209,7 +209,7 @@ publishing {
         }
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/GregoryBevan/events-k")
+            url = uri("https://maven.pkg.github.com/GregoryBevan/ReaKt.EveS")
             credentials {
                 username = System.getenv("GITHUB_ACTOR")
                 password = System.getenv("GITHUB_TOKEN")

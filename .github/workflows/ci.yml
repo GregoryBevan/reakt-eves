@@ -1,4 +1,4 @@
-name: Events-K CI
+name: ReaKt.EveS CI
 
 on:
   push:
@@ -36,6 +36,6 @@ jobs:
         uses: dorny/test-reporter@v1
         if: success() || failure()
         with:
-          name: Escape Camp test report
+          name: ReaKt.EveS test report
           path: build/test-results/**/*.xml
           reporter: java-junit
