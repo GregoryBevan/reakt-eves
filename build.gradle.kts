@@ -175,7 +175,7 @@ publishing {
             pom {
                 name.set("reakt-eves")
                 description.set("Kotlin reactive library to ease event sourcing pattern integration in your Spring Webflux / Reactor projects")
-                url.set("https://github.com/GregoryBevan/ReaKt.EveS.git")
+                url.set("https://github.com/GregoryBevan/reakt-eves.git")
                 licenses {
                     license {
                         name.set("MIT License")
@@ -190,9 +190,9 @@ publishing {
                     }
                 }
                 scm {
-                    connection.set("scm:git:git://github.com:GregoryBevan/ReaKt.EveS.git")
-                    developerConnection.set("scm:git:ssh://git@github.com:GregoryBevan/ReaKt.EveS.git")
-                    url.set("https://github.com/GregoryBevan/ReaKt.EveS.git")
+                    connection.set("scm:git:git://github.com:GregoryBevan/reakt-eves.git")
+                    developerConnection.set("scm:git:ssh://git@github.com:GregoryBevan/reakt-eves.git")
+                    url.set("https://github.com/GregoryBevan/reakt-eves.git")
                 }
             }
             from(javaComponent)
@@ -209,7 +209,7 @@ publishing {
         }
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/GregoryBevan/ReaKt.EveS")
+            url = uri("https://maven.pkg.github.com/GregoryBevan/reakt-eves")
             credentials {
                 username = System.getenv("GITHUB_ACTOR")
                 password = System.getenv("GITHUB_TOKEN")
