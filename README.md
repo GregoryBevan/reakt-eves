@@ -2,7 +2,10 @@
 
 [![ReaKt.EveS Release](https://github.com/GregoryBevan/ReaKt.EveS/actions/workflows/release.yml/badge.svg)](https://github.com/GregoryBevan/ReaKt.EveS/actions/workflows/release.yml)
 
-![reakteves-logo.svg](resources%2Freakteves-logo.svg)
+<p align="center">
+<img src="resources/reakteves-logo.svg" width="50%" height="50%" alt="reakteves-logo">
+</p>
+
 # ReaKt.EveS
 Kotlin reactive library to ease event sourcing pattern integration in your Spring Webflux / Reactor projects
 
