@@ -80,11 +80,13 @@ dependencies {
         }
     }
     implementation("org.postgresql:r2dbc-postgresql:1.0.1.RELEASE")
+    annotationProcessor("org.springframework.boot:spring-boot-autoconfigure-processor")
 
     testImplementation(kotlin("test"))
     testImplementation("io.mockk:mockk:1.13.5")
     testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.25")
     testImplementation("io.projectreactor:reactor-test:3.5.5")
+
 
     "integrationTestImplementation"(project)
     "integrationTestImplementation"("org.testcontainers:postgresql")
