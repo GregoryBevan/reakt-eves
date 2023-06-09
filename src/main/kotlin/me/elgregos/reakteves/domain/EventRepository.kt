@@ -10,5 +10,5 @@ interface EventRepository<EE: EventEntity<E, IdType>, E: Event<IdType>, IdType> 
 
     fun insertAll(eventEntities: List<EE>): Flux<EE>
 
-    fun findByAggregateId(aggregateId: IdType): Flux<EE>
+    fun findByAggregateIdOrderBySequenceNum(aggregateId: IdType): Flux<EE>
 }

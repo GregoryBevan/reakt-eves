@@ -12,5 +12,5 @@ interface EventEntityRepository<EE: EventEntity<E, IdType>, E: Event<IdType>, Id
 
     override fun insertAll(eventEntities: List<EE>) = saveAll(eventEntities.onEach { it.markNew() })
 
-    override fun findByAggregateId(aggregateId: IdType): Flux<EE>
+    override fun findByAggregateIdOrderBySequenceNum(aggregateId: IdType): Flux<EE>
 }
