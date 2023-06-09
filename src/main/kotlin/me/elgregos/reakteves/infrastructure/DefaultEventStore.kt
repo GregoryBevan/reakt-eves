@@ -22,6 +22,6 @@ class DefaultEventStore<EE: EventEntity<E, IdType>, E : Event<IdType>, IdType: A
             .map { it.toEvent(eventClass) }
 
     override fun loadAllEvents(aggregateId: IdType): Flux<E> =
-        eventEntityRepository.findByAggregateId(aggregateId)
+        eventEntityRepository.findByAggregateIdOrderBySequenceNum(aggregateId)
             .map { it.toEvent(eventClass) }
 }
