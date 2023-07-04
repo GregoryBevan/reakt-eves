@@ -1,9 +1,9 @@
-package me.elgregos.reakteves.infrastructure
+package me.elgregos.reakteves.infrastructure.event
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import me.elgregos.reakteves.config.BaseIntegrationTest
-import me.elgregos.reakteves.domain.EventStore
+import me.elgregos.reakteves.domain.event.EventStore
 import me.elgregos.reakteves.domain.FakeEvent
 import me.elgregos.reakteves.domain.fakeCreatedEvent
 import me.elgregos.reakteves.domain.fakeUpdatedEvent

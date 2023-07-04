@@ -1,7 +1,7 @@
-package me.elgregos.reakteves.infrastructure
+package me.elgregos.reakteves.infrastructure.event
 
 import com.fasterxml.jackson.databind.JsonNode
-import me.elgregos.reakteves.domain.Event
+import me.elgregos.reakteves.domain.event.Event
 import org.springframework.data.annotation.Id
 import org.springframework.data.annotation.Transient
 import org.springframework.data.domain.Persistable

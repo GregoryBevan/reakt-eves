@@ -1,6 +1,6 @@
-package me.elgregos.reakteves.infrastructure
+package me.elgregos.reakteves.infrastructure.event
 
-import me.elgregos.reakteves.domain.Event
+import me.elgregos.reakteves.domain.event.Event
 import reactor.core.publisher.Mono
 
 interface EventBus<IdType> {

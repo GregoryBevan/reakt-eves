@@ -1,7 +1,8 @@
-package me.elgregos.reakteves.infrastructure;
+package me.elgregos.reakteves.infrastructure.event;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import me.elgregos.reakteves.domain.domain.event.UserEvent;
+import me.elgregos.reakteves.infrastructure.UserEventEntity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

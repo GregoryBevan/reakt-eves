@@ -1,6 +1,6 @@
-package me.elgregos.reakteves.domain
+package me.elgregos.reakteves.domain.event
 
-import me.elgregos.reakteves.infrastructure.EventEntity
+import me.elgregos.reakteves.infrastructure.event.EventEntity
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 

@@ -1,7 +1,7 @@
-package me.elgregos.reakteves.infrastructure
+package me.elgregos.reakteves.infrastructure.event
 
-import me.elgregos.reakteves.domain.Event
-import me.elgregos.reakteves.domain.EventRepository
+import me.elgregos.reakteves.domain.event.Event
+import me.elgregos.reakteves.domain.event.EventRepository
 import org.springframework.data.r2dbc.repository.R2dbcRepository
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono

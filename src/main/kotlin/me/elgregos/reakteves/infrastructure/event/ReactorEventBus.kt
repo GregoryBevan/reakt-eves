@@ -1,7 +1,7 @@
-package me.elgregos.reakteves.infrastructure
+package me.elgregos.reakteves.infrastructure.event
 
 import io.github.oshai.KotlinLogging
-import me.elgregos.reakteves.domain.Event
+import me.elgregos.reakteves.domain.event.Event
 import org.springframework.scheduling.annotation.Async
 import reactor.core.publisher.BaseSubscriber
 import reactor.core.publisher.Sinks
@@ -28,7 +28,7 @@ class ReactorEventBus<IdType> : EventBus<IdType> {
     }
 }
 
-class ReactorEventPublisher<IdType>(private val reactorEventBus: ReactorEventBus<IdType>) : EventPublisher<IdType> {
+open class ReactorEventPublisher<IdType>(private val reactorEventBus: ReactorEventBus<IdType>) : EventPublisher<IdType> {
 
     @Async("asyncExecutor")
     override fun publish(event: Event<IdType>): Event<IdType> {

@@ -1,4 +1,4 @@
-package me.elgregos.reakteves.domain
+package me.elgregos.reakteves.domain.event
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.github.fge.jsonpatch.mergepatch.JsonMergePatch

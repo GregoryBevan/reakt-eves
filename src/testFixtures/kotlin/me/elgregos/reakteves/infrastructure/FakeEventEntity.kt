@@ -2,6 +2,7 @@ package me.elgregos.reakteves.infrastructure
 
 import com.fasterxml.jackson.databind.JsonNode
 import me.elgregos.reakteves.domain.FakeEvent
+import me.elgregos.reakteves.infrastructure.event.EventEntity
 import me.elgregos.reakteves.libs.nowUTC
 import org.springframework.data.relational.core.mapping.Table
 import java.time.LocalDateTime

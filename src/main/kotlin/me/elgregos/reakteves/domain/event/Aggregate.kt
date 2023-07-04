@@ -1,4 +1,4 @@
-package me.elgregos.reakteves.domain
+package me.elgregos.reakteves.domain.event
 
 import reactor.core.publisher.Mono
 

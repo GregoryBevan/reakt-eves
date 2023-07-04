@@ -1,8 +1,11 @@
 package me.elgregos.reakteves
 
-import me.elgregos.reakteves.domain.EventStore
+import me.elgregos.reakteves.domain.event.EventStore
 import me.elgregos.reakteves.domain.FakeEvent
 import me.elgregos.reakteves.infrastructure.*
+import me.elgregos.reakteves.infrastructure.event.DefaultEventStore
+import me.elgregos.reakteves.infrastructure.event.ReactorEventBus
+import me.elgregos.reakteves.infrastructure.event.ReactorEventPublisher
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.boot.test.context.TestConfiguration

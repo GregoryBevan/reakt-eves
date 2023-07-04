@@ -2,7 +2,7 @@ package me.elgregos.reakteves.domain.domain.event;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.EqualsAndHashCode;
-import me.elgregos.reakteves.domain.Event;
+import me.elgregos.reakteves.domain.event.Event;
 import me.elgregos.reakteves.domain.domain.entity.User;
 
 import java.time.LocalDateTime;

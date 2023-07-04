@@ -1,9 +1,11 @@
-package me.elgregos.reakteves.domain
+package me.elgregos.reakteves.domain.event
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import io.mockk.every
 import io.mockk.mockk
+import me.elgregos.reakteves.domain.FakeEvent
+import me.elgregos.reakteves.domain.fakeCreatedEvent
 import me.elgregos.reakteves.libs.genericObjectMapper
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono

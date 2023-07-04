@@ -1,9 +1,9 @@
-package me.elgregos.reakteves.infrastructure
+package me.elgregos.reakteves.infrastructure.event
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import me.elgregos.reakteves.config.BaseIntegrationTest
-import me.elgregos.reakteves.domain.Event
+import me.elgregos.reakteves.domain.event.Event
 import me.elgregos.reakteves.domain.fakeCreatedEvent
 import me.elgregos.reakteves.libs.genericObjectMapper
 import org.awaitility.kotlin.await
