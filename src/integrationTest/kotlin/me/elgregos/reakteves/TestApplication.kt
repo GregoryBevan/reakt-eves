@@ -11,7 +11,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.Bean
+import org.springframework.core.io.ClassPathResource
 import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories
+import org.springframework.r2dbc.connection.init.ResourceDatabasePopulator
 import java.util.*
 
 @SpringBootApplication
@@ -38,4 +40,9 @@ class TestConfig {
     @Bean
     fun fakeProjectionStore(fakeProjectionRepository: FakeProjectionRepository) =
         DefaultProjectionStore(fakeProjectionRepository, FakeProjectionEntity::class, FakeDomainEntity::class)
+
+    @Bean
+    fun cleaner(): ResourceDatabasePopulator? {
+        return ResourceDatabasePopulator(ClassPathResource("db-changelog/cleaner.sql"))
+    }
 }
