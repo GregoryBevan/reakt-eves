@@ -4,9 +4,9 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import me.elgregos.reakteves.config.BaseIntegrationTest
 import me.elgregos.reakteves.domain.event.EventStore
-import me.elgregos.reakteves.domain.FakeEvent
-import me.elgregos.reakteves.domain.fakeCreatedEvent
-import me.elgregos.reakteves.domain.fakeUpdatedEvent
+import me.elgregos.reakteves.domain.event.FakeEvent
+import me.elgregos.reakteves.domain.event.fakeCreatedEvent
+import me.elgregos.reakteves.domain.event.fakeUpdatedEvent
 import me.elgregos.reakteves.libs.genericObjectMapper
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired

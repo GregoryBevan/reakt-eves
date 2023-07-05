@@ -6,10 +6,8 @@ import assertk.assertions.isEqualTo
 import assertk.assertions.isNotNull
 import com.fasterxml.jackson.databind.node.ObjectNode
 import me.elgregos.reakteves.config.BaseIntegrationTest
-import me.elgregos.reakteves.domain.FakeEvent
-import me.elgregos.reakteves.domain.fakeCreatedEvent
-import me.elgregos.reakteves.infrastructure.FakeEventEntity
-import me.elgregos.reakteves.infrastructure.FakeEventRepository
+import me.elgregos.reakteves.domain.event.FakeEvent
+import me.elgregos.reakteves.domain.event.fakeCreatedEvent
 import me.elgregos.reakteves.infrastructure.event.EventEntity.Companion.fromEvent
 import me.elgregos.reakteves.libs.genericObjectMapper
 import org.springframework.beans.factory.annotation.Autowired

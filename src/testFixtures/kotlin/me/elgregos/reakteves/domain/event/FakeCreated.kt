@@ -1,7 +1,7 @@
-package me.elgregos.reakteves.domain
+package me.elgregos.reakteves.domain.event
 
 import com.fasterxml.jackson.databind.JsonNode
-import me.elgregos.reakteves.domain.event.Event
+import me.elgregos.reakteves.domain.JsonConvertible
 import me.elgregos.reakteves.libs.nowUTC
 import java.time.LocalDateTime
 import java.util.*
