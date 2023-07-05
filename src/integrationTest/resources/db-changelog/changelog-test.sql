@@ -18,3 +18,19 @@ create table if not exists fake_event (
   event jsonb not null);
 --rollback drop table if exists fake_event;
 
+-- changeset el-gregos:create-fake-table-sequence
+create sequence fake_sequence;
+--rollback drop sequence fake_sequence;
+
+-- changeset el-gregos:create-fake-table
+create table if not exists fake (
+    id uuid primary key,
+    sequence_num bigint not null default nextval('fake_sequence'),
+    version int not null,
+    created_at timestamp not null,
+    created_by uuid not null,
+    updated_at timestamp not null,
+    updated_by uuid not null,
+    details jsonb not null);
+--rollback drop table if exists fake;
+

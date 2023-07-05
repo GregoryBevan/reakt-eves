@@ -2,9 +2,11 @@ package me.elgregos.reakteves.infrastructure.projection
 
 import com.fasterxml.jackson.databind.JsonNode
 import me.elgregos.reakteves.domain.entity.*
+import org.springframework.data.relational.core.mapping.Table
 import java.time.LocalDateTime
 import java.util.*
 
+@Table("fake")
 data class FakeProjectionEntity(
     @get:JvmName("id") val id: UUID,
     override val sequenceNum: Long? = null,

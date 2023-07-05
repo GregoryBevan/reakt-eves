@@ -41,16 +41,16 @@ open class ProjectionEntity<DE : DomainEntity<ID, UserID>, ID, UserID>(
         fun <DE : DomainEntity<ID, UserID>, PE : ProjectionEntity<DE, ID, UserID>, ID, UserID> fromDomainEntity(
             domainEntity: DE,
             projectionEntityClass: KClass<PE>,
-            sequenceNum: Long? = null
+            sequenceNum: Long? = null,
         ): PE = projectionEntityClass.primaryConstructor?.call(
-                domainEntity.id,
-                sequenceNum,
-                domainEntity.version,
-                domainEntity.createdAt,
-                domainEntity.createdBy,
-                domainEntity.updatedAt,
-                domainEntity.updatedBy,
-                domainEntity.toJson()
-            ) as PE
+            domainEntity.id,
+            sequenceNum,
+            domainEntity.version,
+            domainEntity.createdAt,
+            domainEntity.createdBy,
+            domainEntity.updatedAt,
+            domainEntity.updatedBy,
+            domainEntity.toJson()
+        ) as PE
     }
 }
