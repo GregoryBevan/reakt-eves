@@ -1,10 +1,7 @@
 package me.elgregos.reakteves.infrastructure.projection
 
 import com.fasterxml.jackson.databind.JsonNode
-import me.elgregos.reakteves.domain.entity.FakeDomainEntity
-import me.elgregos.reakteves.domain.entity.fakeDomainEntityCreatedAt
-import me.elgregos.reakteves.domain.entity.fakeDomainEntityId
-import me.elgregos.reakteves.domain.entity.fakeDomainEntityJson
+import me.elgregos.reakteves.domain.entity.*
 import java.time.LocalDateTime
 import java.util.*
 
@@ -13,9 +10,11 @@ data class FakeProjectionEntity(
     override val sequenceNum: Long? = null,
     override val version: Int,
     override val createdAt: LocalDateTime,
+    override val createdBy: UUID,
     override val updatedAt: LocalDateTime,
+    override val updatedBy: UUID,
     override val details: JsonNode
-) : ProjectionEntity<FakeDomainEntity>(id, sequenceNum, version, createdAt, updatedAt, details)
+) : ProjectionEntity<FakeDomainEntity, UUID, UUID>(id, sequenceNum, version, createdAt, createdBy, updatedAt, updatedBy, details)
 
 
-val fakeProjectionEntity: FakeProjectionEntity = FakeProjectionEntity(fakeDomainEntityId, null,1, fakeDomainEntityCreatedAt, fakeDomainEntityCreatedAt, fakeDomainEntityJson)
+val fakeProjectionEntity: FakeProjectionEntity = FakeProjectionEntity(fakeDomainEntityId, null,1, fakeDomainEntityCreatedAt, fakeDomainEntityCreatedById,  fakeDomainEntityCreatedAt, fakeDomainEntityCreatedById, fakeDomainEntityJson)

@@ -2,13 +2,12 @@ package me.elgregos.reakteves.domain.entity
 
 import me.elgregos.reakteves.domain.JsonConvertible
 import java.time.LocalDateTime
-import java.util.*
 
-interface DomainEntity: JsonConvertible {
-    val id: UUID
+interface DomainEntity<ID, UserID>: JsonConvertible {
+    val id: ID
     val version: Int
     val createdAt: LocalDateTime
-    val createdBy: UUID
+    val createdBy: UserID
     val updatedAt: LocalDateTime
-    val updatedBy: UUID
+    val updatedBy: UserID
 }

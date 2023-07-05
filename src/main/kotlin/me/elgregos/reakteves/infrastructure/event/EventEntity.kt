@@ -2,6 +2,7 @@ package me.elgregos.reakteves.infrastructure.event
 
 import com.fasterxml.jackson.databind.JsonNode
 import me.elgregos.reakteves.domain.event.Event
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User
 import org.springframework.data.annotation.Id
 import org.springframework.data.annotation.Transient
 import org.springframework.data.domain.Persistable
@@ -11,16 +12,16 @@ import kotlin.reflect.KClass
 import kotlin.reflect.full.primaryConstructor
 
 
-open class EventEntity<E : Event<IdType>, IdType>(
-    @Id private val id: UUID,
+open class EventEntity<E : Event<ID, out UserID>, ID, out UserID>(
+    @Id private val id: ID,
     open val sequenceNum: Long?,
     open val version: Int,
     open val createdAt: LocalDateTime,
-    open val createdBy: IdType,
+    open val createdBy: UserID,
     open val eventType: String,
-    open val aggregateId: IdType,
+    open val aggregateId: ID,
     open val event: JsonNode
-) : Persistable<UUID> {
+) : Persistable<ID> {
 
     @Transient
     private var isNew = false
@@ -32,7 +33,7 @@ open class EventEntity<E : Event<IdType>, IdType>(
         isNew = true
     }
 
-    fun toEvent(eventClass: Class<E>, idClass: Class<IdType>): E =
+    fun toEvent(eventClass: Class<E>, idClass: Class<ID>): E =
         eventClass.permittedSubclasses
             .first { it.simpleName == eventType }
             .let {
@@ -70,55 +71,10 @@ open class EventEntity<E : Event<IdType>, IdType>(
                 ) as E
             }
 
-    inline fun <reified E : Event<IdType>, reified IdType> toEvent(): E {
-        return E::class.java.permittedSubclasses
-            .first { it.simpleName == eventType }
-            .let {
-                it.getConstructor(
-                    UUID::class.java,
-                    Long::class.javaObjectType,
-                    Int::class.java,
-                    LocalDateTime::class.java,
-                    IdType::class.java,
-                    IdType::class.java,
-                    JsonNode::class.java
-                ).newInstance(
-                    getId(),
-                    sequenceNum,
-                    version,
-                    createdAt,
-                    createdBy,
-                    aggregateId,
-                    event
-                ) as E
-            }
-    }
-
     override fun getId() = id
 
     companion object {
-        inline fun <reified EE : EventEntity<E, IdType>, reified E : Event<IdType>, reified IdType> fromEvent(event: E): EE =
-            EE::class.java.getConstructor(
-                UUID::class.java,
-                Long::class.javaObjectType,
-                Int::class.java,
-                LocalDateTime::class.java,
-                IdType::class.java,
-                String::class.java,
-                IdType::class.java,
-                JsonNode::class.java
-            ).newInstance(
-                event.id,
-                event.sequenceNum,
-                event.version,
-                event.createdAt,
-                event.createdBy,
-                event.eventType,
-                event.aggregateId,
-                event.event
-            )
-
-        fun <EE : EventEntity<E, IdType>, E : Event<IdType>, IdType : Any> fromEvent(
+        fun <EE : EventEntity<E, ID, UserID>, E : Event<ID, UserID>, ID : Any, UserID > fromEvent(
             event: E,
             eventEntityClass: KClass<EE>
         ): EE = eventEntityClass.primaryConstructor?.call(

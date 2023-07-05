@@ -6,10 +6,10 @@ import me.elgregos.reakteves.libs.genericObjectMapper
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
-abstract class JsonAggregate<E : Event<IdType>, IdType>(
-    aggregateId: IdType,
-    eventStore: EventStore<E, IdType>
-) : Aggregate<E, IdType> {
+abstract class JsonAggregate<E : Event<ID, UserID>, ID, UserID>(
+    aggregateId: ID,
+    eventStore: EventStore<E, ID, UserID>
+) : Aggregate<E, ID, UserID> {
 
     protected val events: Flux<E> = eventStore.loadAllEvents(aggregateId)
     private val lastVersion: Mono<Int> =

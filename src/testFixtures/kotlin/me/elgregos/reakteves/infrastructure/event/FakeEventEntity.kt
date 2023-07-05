@@ -17,7 +17,7 @@ data class FakeEventEntity(
     override val eventType:String,
     override val aggregateId: UUID = UUID.randomUUID(),
     override val event: JsonNode
-) : EventEntity<FakeEvent, UUID>(
+) : EventEntity<FakeEvent, UUID, UUID>(
     id,
     sequenceNum,
     version,

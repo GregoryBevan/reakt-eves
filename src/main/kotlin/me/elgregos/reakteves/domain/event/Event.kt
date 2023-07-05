@@ -4,12 +4,12 @@ import com.fasterxml.jackson.databind.JsonNode
 import java.time.LocalDateTime
 import java.util.*
 
-abstract class Event<IdType>(
-    open val id: UUID,
+abstract class Event<ID, UserID>(
+    open val id: ID,
     open val sequenceNum: Long?,
     open val version: Int,
     open val createdAt: LocalDateTime,
-    open val createdBy: IdType,
+    open val createdBy: UserID,
     open val eventType: String,
-    open val aggregateId: IdType,
+    open val aggregateId: UserID,
     open val event: JsonNode)

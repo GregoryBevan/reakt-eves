@@ -15,7 +15,7 @@ sealed class FakeEvent(
     eventType: String,
     aggregateId: UUID,
     event: JsonNode
-) : Event<UUID>(
+) : Event<UUID, UUID>(
     id, sequenceNum, version, createdAt, createdBy, eventType, aggregateId, event
 ), JsonConvertible {
 

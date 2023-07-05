@@ -3,16 +3,16 @@ package me.elgregos.reakteves.infrastructure.event
 import me.elgregos.reakteves.domain.event.Event
 import reactor.core.publisher.Mono
 
-interface EventBus<IdType> {
-    fun publishEvent(event: Event<IdType>): Event<IdType>
+interface EventBus<ID, UserID> {
+    fun publishEvent(event: Event<ID, UserID>): Event<ID, UserID>
 }
 
-interface EventPublisher<IdType> {
-    fun publish(event: Event<IdType>): Event<IdType>
+interface EventPublisher<IdType, UserID> {
+    fun publish(event: Event<IdType, UserID>): Event<IdType, UserID>
 }
 
-interface EventSubscriber<IdType> {
-    fun onEvent(event: Event<IdType>): Mono<Void>
+interface EventSubscriber<IdType, UserID> {
+    fun onEvent(event: Event<IdType, UserID>): Mono<Void>
 
     fun subscribe()
 

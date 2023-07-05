@@ -14,7 +14,7 @@ import java.util.UUID;
 @Table("user_event")
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class UserEventEntity extends EventEntity<UserEvent, UUID> {
+public class UserEventEntity extends EventEntity<UserEvent, UUID, UUID> {
 
     protected UserEventEntity() {
         this(null, null, null, null, null, null, null, null);

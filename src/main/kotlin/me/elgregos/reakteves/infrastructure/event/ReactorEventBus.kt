@@ -12,43 +12,43 @@ import java.util.concurrent.atomic.AtomicInteger
 
 private val logger = KotlinLogging.logger {}
 
-class ReactorEventBus<IdType> : EventBus<IdType> {
-    private val sink: Many<Event<IdType>> = Sinks.many().multicast().onBackpressureBuffer(Queues.SMALL_BUFFER_SIZE, false)
+class ReactorEventBus<ID, UserID> : EventBus<ID, UserID> {
+    private val sink: Many<Event<ID, UserID>> = Sinks.many().multicast().onBackpressureBuffer(Queues.SMALL_BUFFER_SIZE, false)
 
     private val publishedCount = AtomicInteger(0)
 
-    override fun publishEvent(event: Event<IdType>): Event<IdType> {
+    override fun publishEvent(event: Event<ID, UserID>): Event<ID, UserID> {
         sink.emitNext(event, Sinks.EmitFailureHandler.FAIL_FAST)
         logger.debug { "Published : ${publishedCount.addAndGet(1)}" }
         return event
     }
 
-    fun subscribe(subscriber: ReactorEventSubscriber<IdType>) {
+    fun subscribe(subscriber: ReactorEventSubscriber<ID, UserID>) {
         sink.asFlux().subscribe(subscriber)
     }
 }
 
-open class ReactorEventPublisher<IdType>(private val reactorEventBus: ReactorEventBus<IdType>) : EventPublisher<IdType> {
+open class ReactorEventPublisher<IdType, UserID>(private val reactorEventBus: ReactorEventBus<IdType, UserID>) : EventPublisher<IdType, UserID> {
 
     @Async("asyncExecutor")
-    override fun publish(event: Event<IdType>): Event<IdType> {
+    override fun publish(event: Event<IdType, UserID>): Event<IdType, UserID> {
         logger.debug { "New event published : $event" }
         reactorEventBus.publishEvent(event)
         return event
     }
 
-    fun publish(events: List<Event<IdType>>) {
+    fun publish(events: List<Event<IdType, UserID>>) {
         events.forEach { publish(it) }
     }
 
 }
 
-abstract class ReactorEventSubscriber<IdType>(private val reactorEventBus: ReactorEventBus<IdType>) : EventSubscriber<IdType>, BaseSubscriber<Event<IdType>>() {
+abstract class ReactorEventSubscriber<IdType, UserID>(private val reactorEventBus: ReactorEventBus<IdType, UserID>) : EventSubscriber<IdType, UserID>, BaseSubscriber<Event<IdType, UserID>>() {
 
     private val receivedCount = AtomicInteger(0)
 
 //    @Async("asyncExecutor")
-    override fun hookOnNext(event: Event<IdType>) {
+    override fun hookOnNext(event: Event<IdType, UserID>) {
         logger.debug {
             """
             |New event received : $event" }

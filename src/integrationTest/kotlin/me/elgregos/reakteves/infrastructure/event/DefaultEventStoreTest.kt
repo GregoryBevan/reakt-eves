@@ -16,7 +16,7 @@ import java.util.*
 internal class DefaultEventStoreTest: BaseIntegrationTest() {
 
     @Autowired
-    private lateinit var fakeEventStore: EventStore<FakeEvent, UUID>
+    private lateinit var fakeEventStore: EventStore<FakeEvent, UUID, UUID>
 
     @Test
     fun `should save an event`() {

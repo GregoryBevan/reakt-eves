@@ -7,19 +7,20 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.annotation.Transient
 import org.springframework.data.domain.Persistable
 import java.time.LocalDateTime
-import java.util.*
 import kotlin.reflect.KClass
 import kotlin.reflect.full.primaryConstructor
 
 
-open class ProjectionEntity<DE : DomainEntity>(
-    @Id private val id: UUID,
+open class ProjectionEntity<DE : DomainEntity<ID, UserID>, ID, UserID>(
+    @Id private val id: ID,
     open val sequenceNum: Long? = null,
     open val version: Int,
     open val createdAt: LocalDateTime,
+    open val createdBy: UserID,
     open val updatedAt: LocalDateTime,
+    open val updatedBy: UserID,
     open val details: JsonNode
-) : Persistable<UUID> {
+) : Persistable<ID> {
 
     @Transient
     private var isNew = false
@@ -37,7 +38,7 @@ open class ProjectionEntity<DE : DomainEntity>(
         JsonConvertible.fromJson(details, type.java)
 
     companion object {
-        fun <DE : DomainEntity, PE : ProjectionEntity<DE>> fromDomainEntity(
+        fun <DE : DomainEntity<ID, UserID>, PE : ProjectionEntity<DE, ID, UserID>, ID, UserID> fromDomainEntity(
             domainEntity: DE,
             projectionEntityClass: KClass<PE>,
             sequenceNum: Long? = null
@@ -46,7 +47,9 @@ open class ProjectionEntity<DE : DomainEntity>(
                 sequenceNum,
                 domainEntity.version,
                 domainEntity.createdAt,
+                domainEntity.createdBy,
                 domainEntity.updatedAt,
+                domainEntity.updatedBy,
                 domainEntity.toJson()
             ) as PE
     }

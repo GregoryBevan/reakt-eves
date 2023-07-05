@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @EqualsAndHashCode(callSuper = false)
-public sealed abstract class UserEvent extends Event<UUID> {
+public sealed abstract class UserEvent extends Event<UUID, UUID> {
 
     protected UserEvent(UUID id,
                         Long sequenceNum,
