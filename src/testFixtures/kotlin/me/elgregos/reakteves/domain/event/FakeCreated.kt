@@ -1,6 +1,7 @@
-package me.elgregos.reakteves.domain
+package me.elgregos.reakteves.domain.event
 
 import com.fasterxml.jackson.databind.JsonNode
+import me.elgregos.reakteves.domain.JsonConvertible
 import me.elgregos.reakteves.libs.nowUTC
 import java.time.LocalDateTime
 import java.util.*
@@ -14,7 +15,7 @@ sealed class FakeEvent(
     eventType: String,
     aggregateId: UUID,
     event: JsonNode
-) : Event<UUID>(
+) : Event<UUID, UUID>(
     id, sequenceNum, version, createdAt, createdBy, eventType, aggregateId, event
 ), JsonConvertible {
 

@@ -1,10 +1,10 @@
-package me.elgregos.reakteves.infrastructure
+package me.elgregos.reakteves.infrastructure.event
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import me.elgregos.reakteves.config.BaseIntegrationTest
-import me.elgregos.reakteves.domain.Event
-import me.elgregos.reakteves.domain.fakeCreatedEvent
+import me.elgregos.reakteves.domain.event.Event
+import me.elgregos.reakteves.domain.event.fakeCreatedEvent
 import me.elgregos.reakteves.libs.genericObjectMapper
 import org.awaitility.kotlin.await
 import org.springframework.beans.factory.annotation.Autowired
@@ -17,10 +17,10 @@ import kotlin.test.Test
 internal class ReactorEventBusTest : BaseIntegrationTest() {
 
     @Autowired
-    private lateinit var reactorEventPublisher: ReactorEventPublisher<UUID>
+    private lateinit var reactorEventPublisher: ReactorEventPublisher<UUID, UUID>
 
     @Autowired
-    private lateinit var reactorEventBus: ReactorEventBus<UUID>
+    private lateinit var reactorEventBus: ReactorEventBus<UUID, UUID>
 
     private lateinit var testReactorEventSubscriber: TestReactorEventSubscriber
 
@@ -99,12 +99,12 @@ internal class ReactorEventBusTest : BaseIntegrationTest() {
     }
 }
 
-internal class TestReactorEventSubscriber(reactorEventBus: ReactorEventBus<UUID>) :
-    ReactorEventSubscriber<UUID>(reactorEventBus) {
+internal class TestReactorEventSubscriber(reactorEventBus: ReactorEventBus<UUID, UUID>) :
+    ReactorEventSubscriber<UUID, UUID>(reactorEventBus) {
 
-    var events = mutableListOf<Event<UUID>>()
+    var events = mutableListOf<Event<UUID, UUID>>()
 
-    override fun onEvent(event: Event<UUID>) = Mono.just(event)
+    override fun onEvent(event: Event<UUID, UUID>) = Mono.just(event)
         .doOnNext{ events.add(it) }
         .then()
 

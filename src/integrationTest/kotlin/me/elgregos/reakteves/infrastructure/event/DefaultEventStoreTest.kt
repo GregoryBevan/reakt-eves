@@ -1,12 +1,12 @@
-package me.elgregos.reakteves.infrastructure
+package me.elgregos.reakteves.infrastructure.event
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import me.elgregos.reakteves.config.BaseIntegrationTest
-import me.elgregos.reakteves.domain.EventStore
-import me.elgregos.reakteves.domain.FakeEvent
-import me.elgregos.reakteves.domain.fakeCreatedEvent
-import me.elgregos.reakteves.domain.fakeUpdatedEvent
+import me.elgregos.reakteves.domain.event.EventStore
+import me.elgregos.reakteves.domain.event.FakeEvent
+import me.elgregos.reakteves.domain.event.fakeCreatedEvent
+import me.elgregos.reakteves.domain.event.fakeUpdatedEvent
 import me.elgregos.reakteves.libs.genericObjectMapper
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -16,7 +16,7 @@ import java.util.*
 internal class DefaultEventStoreTest: BaseIntegrationTest() {
 
     @Autowired
-    private lateinit var fakeEventStore: EventStore<FakeEvent, UUID>
+    private lateinit var fakeEventStore: EventStore<FakeEvent, UUID, UUID>
 
     @Test
     fun `should save an event`() {

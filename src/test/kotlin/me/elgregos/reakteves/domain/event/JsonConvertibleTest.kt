@@ -1,7 +1,8 @@
-package me.elgregos.reakteves.domain
+package me.elgregos.reakteves.domain.event
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import me.elgregos.reakteves.domain.JsonConvertible
 import me.elgregos.reakteves.libs.genericObjectMapper
 import java.time.LocalDate
 import kotlin.test.Test

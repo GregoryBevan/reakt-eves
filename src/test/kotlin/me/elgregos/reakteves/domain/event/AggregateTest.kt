@@ -1,4 +1,4 @@
-package me.elgregos.reakteves.domain
+package me.elgregos.reakteves.domain.event
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
@@ -14,7 +14,7 @@ import kotlin.test.Test
 
 internal class AggregateTest {
 
-    private lateinit var eventStore: EventStore<FakeEvent, UUID>
+    private lateinit var eventStore: EventStore<FakeEvent, UUID, UUID>
 
     @BeforeTest
     fun setUp() {
@@ -181,8 +181,8 @@ internal class AggregateTest {
 
 internal class AggregateExample(
     private val aggregateId: UUID,
-    eventStore: EventStore<FakeEvent, UUID>
-) : JsonAggregate<FakeEvent, UUID>(aggregateId, eventStore) {
+    eventStore: EventStore<FakeEvent, UUID, UUID>
+) : JsonAggregate<FakeEvent, UUID, UUID>(aggregateId, eventStore) {
 
     fun generateOneEvent(eventId: UUID, createdBy: UUID) =
         nextVersion()

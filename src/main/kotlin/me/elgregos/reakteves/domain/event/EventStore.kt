@@ -1,9 +1,9 @@
-package me.elgregos.reakteves.domain
+package me.elgregos.reakteves.domain.event
 
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
-interface EventStore<E : Event<IdType>, IdType> {
+interface EventStore<E : Event<ID, UserID>, ID, UserID> {
 
     /**
      * Save the given event in event store
@@ -18,6 +18,6 @@ interface EventStore<E : Event<IdType>, IdType> {
     /**
      * Load all events from event store for the given aggregate Id
      */
-    fun loadAllEvents(aggregateId: IdType): Flux<E>
+    fun loadAllEvents(aggregateId: ID): Flux<E>
 
 }
