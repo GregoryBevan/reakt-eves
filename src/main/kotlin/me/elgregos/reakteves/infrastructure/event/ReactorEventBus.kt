@@ -1,6 +1,6 @@
 package me.elgregos.reakteves.infrastructure.event
 
-import io.github.oshai.KotlinLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import me.elgregos.reakteves.domain.event.Event
 import org.springframework.scheduling.annotation.Async
 import reactor.core.publisher.BaseSubscriber

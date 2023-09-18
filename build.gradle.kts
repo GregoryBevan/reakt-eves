@@ -1,9 +1,9 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.8.20"
-    kotlin("plugin.spring") version "1.8.20"
-    id("io.spring.dependency-management") version "1.0.12.RELEASE"
+    kotlin("jvm") version "1.9.10"
+    kotlin("plugin.spring") version "1.9.10"
+    id("io.spring.dependency-management") version "1.1.3"
     `java-library`
     `maven-publish`
     signing
@@ -31,8 +31,8 @@ configurations["integrationTestRuntimeOnly"].extendsFrom(configurations.testRunt
 configurations["integrationTestImplementation"].extendsFrom(configurations.testImplementation.get())
 
 
-extra["testcontainersVersion"] = "1.16.2"
-ext["junit-jupiter.version"] = "5.8.2"
+extra["testcontainersVersion"] = "1.18.0"
+ext["junit-jupiter.version"] = "5.9.3"
 
 dependencyManagement {
     imports {
@@ -44,71 +44,71 @@ dependencies {
     implementation("com.github.java-json-tools:json-patch:1.13") {
         exclude("com.fasterxml.jackson.core", "jackson-databind")
     }
-    implementation("io.github.oshai:kotlin-logging-jvm:4.0.0-beta-27")
+    implementation("io.github.oshai:kotlin-logging-jvm:5.1.0")
     implementation("org.yaml:snakeyaml:2.0")
 
     implementation("org.springframework.boot:spring-boot-starter-webflux") {
         version {
-            strictly("[2.7.11,)")
-            prefer("3.0.6")
+            strictly("[2.7.15,)")
+            prefer("3.1.3")
         }
     }
 
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc") {
         version {
-            strictly("[2.7.11,)")
-            prefer("3.0.6")
+            strictly("[2.7.15,)")
+            prefer("3.1.3")
         }
     }
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin") {
         version {
             strictly("[2.14,)")
-            prefer("2.15.0")
+            prefer("2.15.2")
         }
     }
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310") {
         version {
             strictly("[2.14,)")
-            prefer("2.15.0")
+            prefer("2.15.2")
         }
     }
-    implementation("io.projectreactor.kotlin:reactor-kotlin-extensions:1.2.2") {
+    implementation("io.projectreactor.kotlin:reactor-kotlin-extensions") {
         version {
             strictly("[1.1,)")
             prefer("1.2.2")
         }
     }
-    implementation("org.postgresql:r2dbc-postgresql:1.0.1.RELEASE")
+    implementation("org.postgresql:r2dbc-postgresql:1.0.2.RELEASE")
     annotationProcessor("org.springframework.boot:spring-boot-autoconfigure-processor")
 
     testImplementation(kotlin("test"))
-    testImplementation("io.mockk:mockk:1.13.5")
-    testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.25")
-    testImplementation("io.projectreactor:reactor-test:3.5.5")
+    testImplementation("io.mockk:mockk:1.13.7")
+    testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.27.0")
+    testImplementation("io.projectreactor:reactor-test:3.5.10")
 
 
     "integrationTestImplementation"(project)
     "integrationTestImplementation"("org.testcontainers:postgresql")
     "integrationTestImplementation"("io.projectreactor:reactor-test")
-    "integrationTestImplementation"("org.awaitility:awaitility:4.1.1")
-    "integrationTestImplementation"("org.awaitility:awaitility-kotlin:4.1.1")
+    "integrationTestImplementation"("org.awaitility:awaitility:4.2.0")
+    "integrationTestImplementation"("org.awaitility:awaitility-kotlin:4.2.0")
     "integrationTestRuntimeOnly"("org.junit.platform:junit-platform-suite")
     "integrationTestRuntimeOnly"("org.testcontainers:junit-jupiter:${property("testcontainersVersion")}")
     "integrationTestRuntimeOnly"("org.testcontainers:r2dbc")
-    "integrationTestRuntimeOnly"("org.liquibase:liquibase-core:4.17.2")
-    "integrationTestRuntimeOnly"("org.postgresql:postgresql:42.3.8")
+    "integrationTestRuntimeOnly"("org.liquibase:liquibase-core:4.23.2")
+    "integrationTestRuntimeOnly"("org.postgresql:postgresql:42.6.0")
 
     testFixturesApi("org.springframework.boot:spring-boot-starter-test") {
         version {
-            strictly("[2.7.11,)")
-            prefer("3.0.6")
+            strictly("[2.7.15,)")
+            prefer("3.1.3")
         }
     }
     testFixturesApi("org.springframework.boot:spring-boot-starter-data-r2dbc") {
         version {
-            strictly("[2.7.11,)")
-            prefer("3.0.6")
+            strictly("[2.7.15,)")
+            prefer("3.1.3")
         }
     }
     testFixturesApi("org.testcontainers:junit-jupiter:${property("testcontainersVersion")}")
@@ -118,11 +118,11 @@ dependencies {
     testFixturesApi("com.fasterxml.jackson.datatype:jackson-datatype-jsr310") {
         version {
             strictly("[2.14,)")
-            prefer("2.15.0")
+            prefer("2.15.2")
         }
     }
-    testFixturesCompileOnly("org.projectlombok:lombok:1.18.26")
-    testFixturesAnnotationProcessor("org.projectlombok:lombok:1.18.26")
+    testFixturesCompileOnly("org.projectlombok:lombok:1.18.28")
+    testFixturesAnnotationProcessor("org.projectlombok:lombok:1.18.28")
 }
 
 tasks.withType<KotlinCompile> {
