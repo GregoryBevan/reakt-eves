@@ -8,7 +8,7 @@ class PostgreSQLContainerHandler {
     private lateinit var postgreSQLContainer: PostgreSQLContainer<Nothing>
 
     fun start() {
-        postgreSQLContainer = PostgreSQLContainer<Nothing>("postgres:13")
+        postgreSQLContainer = PostgreSQLContainer<Nothing>("postgres:14")
         postgreSQLContainer.start()
         registerSpringProperties()
     }

@@ -16,7 +16,7 @@ import kotlin.test.BeforeTest
 @SpringBootTest
 @ContextConfiguration(classes = [TestConfig::class])
 @ExtendWith(PostgreSQLExtension::class)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 class BaseIntegrationTest {
 
     @Autowired
