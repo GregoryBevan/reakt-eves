@@ -10,13 +10,13 @@ import org.junit.jupiter.api.extension.ExtensionContext
  */
 class PostgreSQLExtension : BeforeAllCallback, AfterAllCallback {
 
-    private val postgreSQLContainerHandler = PostgreSQLContainerHandler()
+    private val postgresSQLContainerHandler = PostgresSQLContainerHandler()
 
     override fun beforeAll(context: ExtensionContext?) {
-        postgreSQLContainerHandler.start()
+        postgresSQLContainerHandler.start()
     }
 
     override fun afterAll(context: ExtensionContext?) {
-        postgreSQLContainerHandler.stop()
+        postgresSQLContainerHandler.stop()
     }
 }
