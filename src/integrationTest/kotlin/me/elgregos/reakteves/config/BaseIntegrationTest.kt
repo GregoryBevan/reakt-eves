@@ -9,21 +9,20 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.r2dbc.connection.init.ResourceDatabasePopulator
 import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.context.ContextConfiguration
-import java.util.*
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 
 @SpringBootTest
 @ContextConfiguration(classes = [TestConfig::class])
 @ExtendWith(PostgreSQLExtension::class)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 class BaseIntegrationTest {
 
     @Autowired
-    protected var connectionFactory: ConnectionFactory? = null
+    protected lateinit var connectionFactory: ConnectionFactory
 
     @Autowired
-    protected var cleaner: ResourceDatabasePopulator? = null
+    protected lateinit var cleaner: ResourceDatabasePopulator
 
     @BeforeTest
     fun baseSetUp() {
@@ -31,7 +30,7 @@ class BaseIntegrationTest {
 
     @AfterTest
     fun clear() {
-        cleaner!!.populate(connectionFactory!!).block()
+        cleaner.populate(connectionFactory).block()
     }
 
 }
