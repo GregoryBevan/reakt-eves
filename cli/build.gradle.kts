@@ -41,7 +41,7 @@ gradlePlugin {
             id = "me.elgregos.reakteves.cli"
             implementationClass = "me.elgregos.reakteves.cli.ReaKtEveSPlugin"
             group = "me.elgregos.reakteves.cli"
-            version = "0.0.1"
+            version = "0.0.15"
             website = "https://github.com/GregoryBevan/reakt-eves/blob/main/cli/README.md"
             vcsUrl = "https://github.com/GregoryBevan/reakt-eves.git"
             displayName = "ReaKt.EveS Cli Plugin"
