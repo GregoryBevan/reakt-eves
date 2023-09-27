@@ -1,7 +1,5 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
-    kotlin("jvm") version "1.9.10"
+    id("kotlin-conventions")
     kotlin("plugin.spring") version "1.9.10"
     id("io.spring.dependency-management") version "1.1.3"
     `java-library`
@@ -20,18 +18,7 @@ repositories {
     mavenCentral()
 }
 
-sourceSets {
-    create("integrationTest") {
-        compileClasspath += sourceSets.test.get().output
-        runtimeClasspath += sourceSets.test.get().output
-    }
-}
-
-configurations["integrationTestRuntimeOnly"].extendsFrom(configurations.testRuntimeOnly.get())
-configurations["integrationTestImplementation"].extendsFrom(configurations.testImplementation.get())
-
-
-extra["testcontainersVersion"] = "1.18.0"
+extra["testcontainersVersion"] = "1.19.0"
 ext["junit-jupiter.version"] = "5.9.3"
 
 dependencyManagement {
@@ -87,8 +74,6 @@ dependencies {
     testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.27.0")
     testImplementation("io.projectreactor:reactor-test:3.5.10")
 
-
-    "integrationTestImplementation"(project)
     "integrationTestImplementation"("org.testcontainers:postgresql")
     "integrationTestImplementation"("io.projectreactor:reactor-test")
     "integrationTestImplementation"("org.awaitility:awaitility:4.2.0")
@@ -125,30 +110,6 @@ dependencies {
     testFixturesAnnotationProcessor("org.projectlombok:lombok:1.18.28")
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict", "-Xjvm-default=all")
-        jvmTarget = "17"
-    }
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform()
-    testLogging {
-        events("passed", "skipped", "failed")
-    }
-}
-
-val integrationTest = tasks.register<Test>("integrationTest") {
-    description = "Runs the integration tests."
-    group = "verification"
-    testClassesDirs = sourceSets["integrationTest"].output.classesDirs
-    classpath = sourceSets["integrationTest"].runtimeClasspath
-    shouldRunAfter("test")
-}
-
-tasks.check { dependsOn(integrationTest) }
-
 java {
     withJavadocJar()
     withSourcesJar()
@@ -169,6 +130,10 @@ javaComponent.withVariantsFromConfiguration(configurations["testFixturesApiEleme
 javaComponent.withVariantsFromConfiguration(configurations["testFixturesRuntimeElements"]) { skip() }
 
 publishing {
+    publications {
+        create<MavenPublication>("local") {
+        }
+    }
     publications {
         create<MavenPublication>("mavenJava") {
             groupId = "me.elgregos"
