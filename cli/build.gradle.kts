@@ -4,7 +4,6 @@ plugins {
     id("kotlin-conventions")
     `java-gradle-plugin`
     id("com.gradle.plugin-publish") version "1.1.0"
-    `maven-publish`
     id("gg.jte.gradle").version("3.1.0")
 }
 
@@ -41,7 +40,7 @@ gradlePlugin {
             id = "me.elgregos.reakteves.cli"
             implementationClass = "me.elgregos.reakteves.cli.ReaKtEveSPlugin"
             group = "me.elgregos.reakteves.cli"
-            version = "0.0.15"
+            version = "0.0.18"
             website = "https://github.com/GregoryBevan/reakt-eves/blob/main/cli/README.md"
             vcsUrl = "https://github.com/GregoryBevan/reakt-eves.git"
             displayName = "ReaKt.EveS Cli Plugin"
@@ -50,14 +49,6 @@ gradlePlugin {
         }
     }
     testSourceSets(sourceSets.integrationTest.get())
-}
-
-publishing {
-    repositories {
-        maven {
-            url = uri("${layout.buildDirectory}/repo")
-        }
-    }
 }
 
 jte {
