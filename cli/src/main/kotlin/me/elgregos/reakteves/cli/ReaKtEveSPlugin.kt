@@ -1,6 +1,6 @@
 package me.elgregos.reakteves.cli
 
-import me.elgregos.reakteves.cli.generation.DomainClassGenerationTask
+import me.elgregos.reakteves.cli.task.DomainClassGenerationTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.logging.LogLevel

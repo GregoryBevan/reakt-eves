@@ -40,4 +40,4 @@ jobs:
           GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: publish --max-workers 1 closeAndReleaseSonatypeStagingRepository
+          arguments: :publish --max-workers 1 closeAndReleaseSonatypeStagingRepository

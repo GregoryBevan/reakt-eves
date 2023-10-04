@@ -31,7 +31,7 @@ dependencies {
     implementation("com.github.java-json-tools:json-patch:1.13") {
         exclude("com.fasterxml.jackson.core", "jackson-databind")
     }
-    implementation("io.github.oshai:kotlin-logging-jvm:5.1.0")
+    api("io.github.oshai:kotlin-logging-jvm:5.1.0")
     implementation("org.yaml:snakeyaml:2.0")
 
     implementation("org.springframework.boot:spring-boot-starter-webflux") {
@@ -74,15 +74,15 @@ dependencies {
     testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.27.0")
     testImplementation("io.projectreactor:reactor-test:3.5.10")
 
-    "integrationTestImplementation"("org.testcontainers:postgresql")
-    "integrationTestImplementation"("io.projectreactor:reactor-test")
-    "integrationTestImplementation"("org.awaitility:awaitility:4.2.0")
-    "integrationTestImplementation"("org.awaitility:awaitility-kotlin:4.2.0")
-    "integrationTestRuntimeOnly"("org.junit.platform:junit-platform-suite")
-    "integrationTestRuntimeOnly"("org.testcontainers:junit-jupiter:${property("testcontainersVersion")}")
-    "integrationTestRuntimeOnly"("org.testcontainers:r2dbc")
-    "integrationTestRuntimeOnly"("org.liquibase:liquibase-core:4.23.2")
-    "integrationTestRuntimeOnly"("org.postgresql:postgresql:42.6.0")
+    integrationTestImplementation("org.testcontainers:postgresql")
+    integrationTestImplementation("io.projectreactor:reactor-test")
+    integrationTestImplementation("org.awaitility:awaitility:4.2.0")
+    integrationTestImplementation("org.awaitility:awaitility-kotlin:4.2.0")
+    integrationTestRuntimeOnly("org.junit.platform:junit-platform-suite")
+    integrationTestRuntimeOnly("org.testcontainers:junit-jupiter:${property("testcontainersVersion")}")
+    integrationTestRuntimeOnly("org.testcontainers:r2dbc")
+    integrationTestRuntimeOnly("org.liquibase:liquibase-core:4.23.2")
+    integrationTestRuntimeOnly("org.postgresql:postgresql:42.6.0")
 
     testFixturesApi("org.springframework.boot:spring-boot-starter-test") {
         version {
