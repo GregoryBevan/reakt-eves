@@ -31,7 +31,7 @@ dependencies {
     implementation("com.github.java-json-tools:json-patch:1.13") {
         exclude("com.fasterxml.jackson.core", "jackson-databind")
     }
-    implementation("io.github.oshai:kotlin-logging-jvm:5.1.0")
+    api("io.github.oshai:kotlin-logging-jvm:5.1.0")
     implementation("org.yaml:snakeyaml:2.0")
 
     implementation("org.springframework.boot:spring-boot-starter-webflux") {

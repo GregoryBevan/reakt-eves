@@ -5,7 +5,7 @@ This CLI will help you in the use of ReaKt.EveS library.
 Add the following plugin to your Gradle build file :
 ```kotlin
 plugins {
-   id("me.elgregos.reakteves.cli") version "0.0.1" 
+   id("me.elgregos.reakteves.cli") version "1.2.0" 
 }
 ```
 

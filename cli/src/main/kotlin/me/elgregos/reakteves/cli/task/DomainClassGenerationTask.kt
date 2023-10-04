@@ -8,6 +8,11 @@ import me.elgregos.reakteves.cli.generator.domain.entity.generateDomain
 import me.elgregos.reakteves.cli.generator.domain.event.generateDomainAggregate
 import me.elgregos.reakteves.cli.generator.domain.event.generateDomainEvent
 import me.elgregos.reakteves.cli.generator.domain.event.generateDomainEventRepository
+import me.elgregos.reakteves.cli.generator.infrastructure.event.generateDomainEventEntity
+import me.elgregos.reakteves.cli.generator.infrastructure.event.generateDomainEventEntityRepository
+import me.elgregos.reakteves.cli.generator.infrastructure.projection.generateDomainEntity
+import me.elgregos.reakteves.cli.generator.infrastructure.projection.generateDomainProjectionRepository
+import me.elgregos.reakteves.cli.generator.infrastructure.projection.generateDomainProjectionSubscriber
 import me.elgregos.reakteves.cli.generator.templateParams
 import org.gradle.api.DefaultTask
 import org.gradle.api.internal.tasks.userinput.UserInputHandler
@@ -29,7 +34,6 @@ abstract class DomainClassGenerationTask : DefaultTask() {
             ?: throw Exception("Unable to fin kotlin sourceset path")
 
         val templateParams = templateParams(domain, domainPackage)
-        println("YO MAMA: ${templateParams.entries.joinToString()}")
         generateDomainController(kotlinSourcePath, domain, domainPackage, templateParams)
         generateDomainCommand(kotlinSourcePath, domain, domainPackage, templateParams)
         generateDomainCommandHandler(kotlinSourcePath, domain, domainPackage, templateParams)
@@ -38,6 +42,11 @@ abstract class DomainClassGenerationTask : DefaultTask() {
         generateDomainAggregate(kotlinSourcePath, domain, domainPackage, templateParams)
         generateDomainEvent(kotlinSourcePath, domain, domainPackage, templateParams)
         generateDomainEventRepository(kotlinSourcePath, domain, domainPackage, templateParams)
+        generateDomainEventEntity(kotlinSourcePath, domain, domainPackage, templateParams)
+        generateDomainEventEntityRepository(kotlinSourcePath, domain, domainPackage, templateParams)
+        generateDomainEntity(kotlinSourcePath, domain, domainPackage, templateParams)
+        generateDomainProjectionRepository(kotlinSourcePath, domain, domainPackage, templateParams)
+        generateDomainProjectionSubscriber(kotlinSourcePath, domain, domainPackage, templateParams)
 
     }
 

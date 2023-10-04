@@ -16,4 +16,5 @@ internal open class GeneratorTest {
     val domainEntry = "domain" to "Game"
     val domainPathEntry =  "domainPath" to "game"
     val domainPrefixEntry =  "domainPrefix" to "game"
+    val domainTableEntry =  "domainTable" to "game"
 }
