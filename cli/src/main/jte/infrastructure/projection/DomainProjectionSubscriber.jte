@@ -3,7 +3,7 @@
 @param String domainPrefix
 package ${domainPackage}.infrastructure.projection
 
-import io.github.oshai.KotlinLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import jakarta.annotation.PostConstruct
 import ${domainPackage}.domain.entity.${domain}
 import ${domainPackage}.domain.event.${domain}Event

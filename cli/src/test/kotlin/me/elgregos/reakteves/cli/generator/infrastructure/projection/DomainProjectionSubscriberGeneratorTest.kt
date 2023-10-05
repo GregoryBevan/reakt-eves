@@ -17,7 +17,7 @@ internal class DomainProjectionSubscriberGeneratorTest: GeneratorTest() {
         assertThat(output.toString()).isEqualTo("""
             package com.elgregos.escape.camp.game.infrastructure.projection
             
-            import io.github.oshai.KotlinLogging
+            import io.github.oshai.kotlinlogging.KotlinLogging
             import jakarta.annotation.PostConstruct
             import com.elgregos.escape.camp.game.domain.entity.Game
             import com.elgregos.escape.camp.game.domain.event.GameEvent
