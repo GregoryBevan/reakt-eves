@@ -8,6 +8,7 @@ import me.elgregos.reakteves.cli.generator.domain.entity.generateDomain
 import me.elgregos.reakteves.cli.generator.domain.event.generateDomainAggregate
 import me.elgregos.reakteves.cli.generator.domain.event.generateDomainEvent
 import me.elgregos.reakteves.cli.generator.domain.event.generateDomainEventRepository
+import me.elgregos.reakteves.cli.generator.infrastructure.config.generateDomainStoreConfig
 import me.elgregos.reakteves.cli.generator.infrastructure.event.generateDomainEventEntity
 import me.elgregos.reakteves.cli.generator.infrastructure.event.generateDomainEventEntityRepository
 import me.elgregos.reakteves.cli.generator.infrastructure.projection.generateDomainEntity
@@ -42,6 +43,7 @@ abstract class DomainClassGenerationTask : DefaultTask() {
         generateDomainAggregate(kotlinSourcePath, domain, domainPackage, templateParams)
         generateDomainEvent(kotlinSourcePath, domain, domainPackage, templateParams)
         generateDomainEventRepository(kotlinSourcePath, domain, domainPackage, templateParams)
+        generateDomainStoreConfig(kotlinSourcePath, domain, domainPackage, templateParams)
         generateDomainEventEntity(kotlinSourcePath, domain, domainPackage, templateParams)
         generateDomainEventEntityRepository(kotlinSourcePath, domain, domainPackage, templateParams)
         generateDomainEntity(kotlinSourcePath, domain, domainPackage, templateParams)
