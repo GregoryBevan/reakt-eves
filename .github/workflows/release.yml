@@ -17,6 +17,16 @@ jobs:
           cache: gradle
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@v1
+
+      - name: Create gradle.properties
+        env:
+          GRADLE_PROPERTIES: ${{ secrets.GRADLE_PROPERTIES }}
+        shell: bash
+        run: |
+          mkdir -p ~/.gradle/
+          echo "GRADLE_USER_HOME=${HOME}/.gradle" >> $GITHUB_ENV
+          echo "${GRADLE_PROPERTIES}" > ~/.gradle/gradle.properties
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -28,6 +38,7 @@ jobs:
           release_name: Release ${{ github.event.milestone.title }}
           draft: false
           prerelease: false
+
       - name: Publish release
         env:
           RELEASE_VERSION: ${{ github.event.milestone.title }}
@@ -41,3 +52,11 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           arguments: :publish --max-workers 1 closeAndReleaseSonatypeStagingRepository
+
+      - name: Publish CLI release
+        env:
+          RELEASE_VERSION: ${{ github.event.milestone.title }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: cli:publishPlugins
