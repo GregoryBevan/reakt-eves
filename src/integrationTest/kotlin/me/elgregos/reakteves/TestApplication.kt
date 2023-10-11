@@ -28,12 +28,6 @@ fun main(args: Array<String>) {
 class TestConfig {
 
     @Bean
-    fun reactorEventBus() = ReactorEventBus<UUID, UUID>()
-
-    @Bean
-    fun reactorEventPublisher(reactorEventBus: ReactorEventBus<UUID, UUID>) = ReactorEventPublisher(reactorEventBus)
-
-    @Bean
     fun fakeEventStore(fakeEventRepository: FakeEventRepository): EventStore<FakeEvent, UUID, UUID> =
         DefaultEventStore(fakeEventRepository, FakeEventEntity::class, FakeEvent::class)
 
