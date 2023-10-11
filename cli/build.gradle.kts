@@ -15,7 +15,6 @@ repositories {
 }
 
 dependencies {
-    implementation("me.elgregos:reakt-eves:1.2.0-SNAPSHOT")
     implementation("gg.jte:jte:3.1.0")
     implementation("org.springframework.boot:spring-boot-starter-webflux") {
         version {
@@ -40,7 +39,7 @@ gradlePlugin {
             id = "me.elgregos.reakteves.cli"
             implementationClass = "me.elgregos.reakteves.cli.ReaKtEveSPlugin"
             group = "me.elgregos.reakteves.cli"
-            version = "0.0.28"
+            version = System.getenv("RELEASE_VERSION")
             website = "https://github.com/GregoryBevan/reakt-eves/blob/main/cli/README.md"
             vcsUrl = "https://github.com/GregoryBevan/reakt-eves.git"
             displayName = "ReaKt.EveS Cli Plugin"
