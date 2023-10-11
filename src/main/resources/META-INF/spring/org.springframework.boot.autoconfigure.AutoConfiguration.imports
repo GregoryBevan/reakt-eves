@@ -1,1 +1,2 @@
 me.elgregos.reakteves.config.R2dbcPostgresConfig
+me.elgregos.reakteves.config.EventBusConfig
