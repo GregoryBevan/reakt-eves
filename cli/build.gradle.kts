@@ -15,7 +15,6 @@ repositories {
 }
 
 dependencies {
-    implementation("me.elgregos:reakt-eves:${System.getenv("RELEASE_VERSION")}")
     implementation("gg.jte:jte:3.1.0")
     implementation("org.springframework.boot:spring-boot-starter-webflux") {
         version {
