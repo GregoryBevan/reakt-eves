@@ -7,6 +7,7 @@ plugins {
     signing
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
     `java-test-fixtures`
+    id("org.owasp.dependencycheck") version "8.4.0"
 }
 
 group = "me.elgregos"
@@ -36,27 +37,27 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-webflux") {
         version {
-            strictly("[2.7.15,)")
-            prefer("3.1.3")
+            strictly("[2.7.16,)")
+            prefer("3.1.4")
         }
     }
 
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc") {
         version {
-            strictly("[2.7.15,)")
-            prefer("3.1.3")
+            strictly("[2.7.16,)")
+            prefer("3.1.4")
         }
     }
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin") {
         version {
-            strictly("[2.14,)")
+            strictly("[2.14.3,)")
             prefer("2.15.2")
         }
     }
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310") {
         version {
-            strictly("[2.14,)")
+            strictly("[2.14.3,)")
             prefer("2.15.2")
         }
     }
@@ -86,14 +87,14 @@ dependencies {
 
     testFixturesApi("org.springframework.boot:spring-boot-starter-test") {
         version {
-            strictly("[2.7.15,)")
-            prefer("3.1.3")
+            strictly("[2.7.16,)")
+            prefer("3.1.4")
         }
     }
     testFixturesApi("org.springframework.boot:spring-boot-starter-data-r2dbc") {
         version {
-            strictly("[2.7.15,)")
-            prefer("3.1.3")
+            strictly("[2.7.16,)")
+            prefer("3.1.4")
         }
     }
     testFixturesApi("org.testcontainers:junit-jupiter:${property("testcontainersVersion")}")
