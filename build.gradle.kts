@@ -174,14 +174,6 @@ publishing {
                 password = System.getenv("MAVEN_PASSWORD")
             }
         }
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/GregoryBevan/reakt-eves")
-            credentials {
-                username = System.getenv("GITHUB_ACTOR")
-                password = System.getenv("GITHUB_TOKEN")
-            }
-        }
     }
 }
 
