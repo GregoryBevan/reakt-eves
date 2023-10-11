@@ -4,6 +4,7 @@ import me.elgregos.reakteves.cli.generator.api.generateDomainController
 import me.elgregos.reakteves.cli.generator.application.generateDomainCommand
 import me.elgregos.reakteves.cli.generator.application.generateDomainCommandHandler
 import me.elgregos.reakteves.cli.generator.application.generateDomainProjectionService
+import me.elgregos.reakteves.cli.generator.database.generateDomainChangeLog
 import me.elgregos.reakteves.cli.generator.domain.entity.generateDomain
 import me.elgregos.reakteves.cli.generator.domain.event.generateDomainAggregate
 import me.elgregos.reakteves.cli.generator.domain.event.generateDomainEvent
@@ -35,6 +36,7 @@ abstract class DomainClassGenerationTask : DefaultTask() {
             ?: throw Exception("Unable to fin kotlin sourceset path")
 
         val templateParams = templateParams(domain, domainPackage)
+        generateDomainChangeLog(project, templateParams)
         generateDomainController(kotlinSourcePath, domain, domainPackage, templateParams)
         generateDomainCommand(kotlinSourcePath, domain, domainPackage, templateParams)
         generateDomainCommandHandler(kotlinSourcePath, domain, domainPackage, templateParams)
