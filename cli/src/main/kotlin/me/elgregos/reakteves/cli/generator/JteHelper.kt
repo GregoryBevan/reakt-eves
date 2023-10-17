@@ -11,7 +11,7 @@ fun templateParams(domain: String, domainPackage: String) = mapOf(
     "domain" to domain,
     "domainPackage" to domainPackage,
     "domainPrefix" to domain.replaceFirstChar { it.lowercase() },
-    "domainPath" to domain.camelToKebabCase(),
+    "domainPath" to "${domain.camelToKebabCase()}s",
     "domainTable" to domain.snakeCase()
 )
 
