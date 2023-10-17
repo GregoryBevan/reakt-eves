@@ -28,7 +28,7 @@ internal class DomainControllerGeneratorTest: GeneratorTest() {
             
             @RestController
             @RequestMapping(
-                path = ["/api/game"]
+                path = ["/api/games"]
             )
             class GameController(
                 private val gameCommandHandler: GameCommandHandler,

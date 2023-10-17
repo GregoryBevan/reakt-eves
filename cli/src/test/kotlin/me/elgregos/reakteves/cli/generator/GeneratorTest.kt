@@ -14,7 +14,7 @@ internal open class GeneratorTest {
 
     val domainPackageEntry = "domainPackage" to "com.elgregos.escape.camp.game"
     val domainEntry = "domain" to "Game"
-    val domainPathEntry =  "domainPath" to "game"
+    val domainPathEntry =  "domainPath" to "games"
     val domainPrefixEntry =  "domainPrefix" to "game"
     val domainTableEntry =  "domainTable" to "game"
 }
