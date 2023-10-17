@@ -1,6 +1,8 @@
 package me.elgregos.reakteves.infrastructure.event
 
+import com.github.fge.jsonpatch.mergepatch.JsonMergePatch
 import io.github.oshai.kotlinlogging.KotlinLogging
+import me.elgregos.reakteves.domain.JsonConvertible
 import me.elgregos.reakteves.domain.event.Event
 import org.springframework.scheduling.annotation.Async
 import reactor.core.publisher.BaseSubscriber
@@ -46,7 +48,6 @@ abstract class ReactorEventSubscriber<IdType, UserID>(private val reactorEventBu
 
     private val receivedCount = AtomicInteger(0)
 
-//    @Async("asyncExecutor")
     override fun hookOnNext(event: Event<IdType, UserID>) {
         logger.debug {
             """
@@ -66,5 +67,8 @@ abstract class ReactorEventSubscriber<IdType, UserID>(private val reactorEventBu
         logger.debug { "${this.javaClass.simpleName} disposed" }
         this.dispose()
     }
+
+    inline fun <reified T: JsonConvertible, IdType, UserID> mergeJsonPatch(previous: T, event: Event<IdType, UserID>): T =
+        JsonConvertible.fromJson(JsonMergePatch.fromJson(event.event).apply(previous.toJson()), T::class.java)
 
 }

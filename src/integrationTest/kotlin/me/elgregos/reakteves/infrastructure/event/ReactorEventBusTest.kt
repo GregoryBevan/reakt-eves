@@ -3,12 +3,10 @@ package me.elgregos.reakteves.infrastructure.event
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import me.elgregos.reakteves.config.BaseIntegrationTest
-import me.elgregos.reakteves.domain.event.Event
 import me.elgregos.reakteves.domain.event.fakeCreatedEvent
 import me.elgregos.reakteves.libs.genericObjectMapper
 import org.awaitility.kotlin.await
 import org.springframework.beans.factory.annotation.Autowired
-import reactor.core.publisher.Mono
 import java.util.*
 import java.util.concurrent.TimeUnit.SECONDS
 import kotlin.test.BeforeTest
@@ -99,13 +97,3 @@ internal class ReactorEventBusTest : BaseIntegrationTest() {
     }
 }
 
-internal class TestReactorEventSubscriber(reactorEventBus: ReactorEventBus<UUID, UUID>) :
-    ReactorEventSubscriber<UUID, UUID>(reactorEventBus) {
-
-    var events = mutableListOf<Event<UUID, UUID>>()
-
-    override fun onEvent(event: Event<UUID, UUID>) = Mono.just(event)
-        .doOnNext{ events.add(it) }
-        .then()
-
-}
