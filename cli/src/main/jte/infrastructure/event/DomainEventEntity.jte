@@ -13,7 +13,6 @@ import java.util.*
 @Table("${domainTable}_event")
 data class ${domain}EventEntity(
     @get:JvmName("id") val id: UUID,
-    override val sequenceNum: Long? = null,
     override val version: Int = 1,
     override val createdAt: LocalDateTime,
     override val createdBy: UUID,
@@ -22,7 +21,6 @@ data class ${domain}EventEntity(
     override val event: JsonNode
 ) : EventEntity<${domain}Event, UUID, UUID>(
     id,
-    sequenceNum,
     version,
     createdAt,
     createdBy,

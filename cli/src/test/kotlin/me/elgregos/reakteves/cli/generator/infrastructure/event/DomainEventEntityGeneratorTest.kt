@@ -27,7 +27,6 @@ internal class DomainEventEntityGeneratorTest: GeneratorTest() {
             @Table("game_event")
             data class GameEventEntity(
                 @get:JvmName("id") val id: UUID,
-                override val sequenceNum: Long? = null,
                 override val version: Int = 1,
                 override val createdAt: LocalDateTime,
                 override val createdBy: UUID,
@@ -36,7 +35,6 @@ internal class DomainEventEntityGeneratorTest: GeneratorTest() {
                 override val event: JsonNode
             ) : EventEntity<GameEvent, UUID, UUID>(
                 id,
-                sequenceNum,
                 version,
                 createdAt,
                 createdBy,

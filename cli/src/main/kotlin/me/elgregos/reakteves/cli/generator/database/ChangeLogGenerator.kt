@@ -20,15 +20,10 @@ fun generateDomainChangeLog(projectDirPath: String, projectGroup: String, templa
             """
                 
         -- ${templateParams["domain"]} event log
-        
-        -- changeset $projectGroup:create-${templateParams["domainTable"]}-event-sequence
-        create sequence ${templateParams["domainTable"]}_event_sequence;
-        --rollback drop sequence ${templateParams["domainTable"]}_event_sequence;
 
         -- changeset $projectGroup:create-${templateParams["domainTable"]}-event-table
         create table if not exists ${templateParams["domainTable"]}_event (
           id uuid primary key,
-          sequence_num bigint not null default nextval('${templateParams["domainTable"]}_event_sequence'),
           created_at timestamp not null default (now() at time zone 'utc'),
           created_by uuid not null,
           version int not null,
@@ -37,14 +32,9 @@ fun generateDomainChangeLog(projectDirPath: String, projectGroup: String, templa
           event jsonb not null);
         --rollback drop table if exists ${templateParams["domainTable"]}_event;
 
-        -- changeset $projectGroup:create-${templateParams["domainTable"]}-table-sequence
-        create sequence ${templateParams["domainTable"]}_sequence;
-        --rollback drop sequence ${templateParams["domainTable"]}_sequence;
-
         -- changeset $projectGroup:create-${templateParams["domainTable"]}-table
         create table if not exists ${templateParams["domainTable"]} (
          id uuid primary key,
-         sequence_num bigint not null default nextval('${templateParams["domainTable"]}_sequence'),
          version int not null,
          created_at timestamp not null,
          created_by uuid not null,

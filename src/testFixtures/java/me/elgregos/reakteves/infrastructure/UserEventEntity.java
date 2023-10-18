@@ -17,24 +17,22 @@ import java.util.UUID;
 public class UserEventEntity extends EventEntity<UserEvent, UUID, UUID> {
 
     protected UserEventEntity() {
-        this(null, null, null, null, null, null, null, null);
+        this(null, null, null, null, null, null, null);
     }
 
     protected UserEventEntity(UUID id,
-                              Long sequenceNum,
                               Integer version,
                               LocalDateTime createdAt,
                               UUID createdBy,
                               String eventType,
                               UUID aggregateId,
                               JsonNode event) {
-        super(id, sequenceNum, version, createdAt, createdBy, eventType, aggregateId, event);
+        super(id, version, createdAt, createdBy, eventType, aggregateId, event);
     }
 
     public static UserEventEntity fromUserEvent(UserEvent userEvent) {
         return new UserEventEntity(
                 userEvent.getId(),
-                userEvent.getSequenceNum(),
                 userEvent.getVersion(),
                 userEvent.getCreatedAt(),
                 userEvent.getCreatedBy(),

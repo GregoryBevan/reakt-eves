@@ -12,31 +12,29 @@ import java.util.UUID;
 public sealed abstract class UserEvent extends Event<UUID, UUID> {
 
     protected UserEvent(UUID id,
-                        Long sequenceNum,
                         Integer version,
                         LocalDateTime createdAt,
                         UUID aggregateId,
                         String eventType,
                         UUID createdBy,
                         JsonNode event) {
-        super(id, sequenceNum, version, createdAt, createdBy, eventType, aggregateId, event);
+        super(id, version, createdAt, createdBy, eventType, aggregateId, event);
     }
 
     @EqualsAndHashCode(callSuper = true)
     public static final class UserCreated extends UserEvent {
 
         public UserCreated(User user, LocalDateTime createdAt, UUID createdBy) {
-            this(UUID.randomUUID(), null, 1, createdAt, createdBy, user.id(), user.toJson());
+            this(UUID.randomUUID(), 1, createdAt, createdBy, user.id(), user.toJson());
         }
 
         public UserCreated(UUID id,
-                           Long sequenceNum,
                            Integer version,
                            LocalDateTime createdAt,
                            UUID createdBy,
                            UUID aggregateId,
                            JsonNode event) {
-            super(id, sequenceNum, version, createdAt, createdBy, UserCreated.class.getSimpleName(), aggregateId, event);
+            super(id, version, createdAt, createdBy, UserCreated.class.getSimpleName(), aggregateId, event);
         }
 
     }

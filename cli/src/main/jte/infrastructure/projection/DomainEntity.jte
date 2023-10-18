@@ -13,11 +13,10 @@ import java.util.*
 @Table("${domainTable}")
 data class ${domain}Entity(
     @get:JvmName("id") val id: UUID,
-    override val sequenceNum: Long? = null,
     override val version: Int,
     override val createdAt: LocalDateTime,
     override val createdBy: UUID,
     override val updatedAt: LocalDateTime,
     override val updatedBy: UUID,
     override val details: JsonNode
-) : ProjectionEntity<${domain}, UUID, UUID>(id, sequenceNum, version, createdAt, createdBy, updatedAt, updatedBy, details)
+) : ProjectionEntity<${domain}, UUID, UUID>(id, version, createdAt, createdBy, updatedAt, updatedBy, details)

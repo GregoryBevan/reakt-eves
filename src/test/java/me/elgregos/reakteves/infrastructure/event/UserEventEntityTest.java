@@ -18,7 +18,7 @@ class UserEventEntityTest {
  void shouldConvertEventEntityToEvent() {
   UUID eventId = UUID.randomUUID();
   JsonNode event = getGenericObjectMapper().createObjectNode().put("name", "machin");
-  UserEvent userEvent = new UserCreated(eventId, 1L, 1, nowUTC(), UUID.randomUUID(), UUID.randomUUID(), event);
+  UserEvent userEvent = new UserCreated(eventId, 1, nowUTC(), UUID.randomUUID(), UUID.randomUUID(), event);
   UserEventEntity userEventEntity = UserEventEntity.fromUserEvent(userEvent);
   Assertions.assertEquals(userEventEntity.toEvent(UserEvent.class, UUID.class), userEvent);
  }

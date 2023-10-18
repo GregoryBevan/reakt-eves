@@ -2,7 +2,6 @@ package me.elgregos.reakteves.infrastructure.event
 
 import com.fasterxml.jackson.databind.JsonNode
 import me.elgregos.reakteves.domain.event.Event
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User
 import org.springframework.data.annotation.Id
 import org.springframework.data.annotation.Transient
 import org.springframework.data.domain.Persistable
@@ -14,7 +13,6 @@ import kotlin.reflect.full.primaryConstructor
 
 open class EventEntity<E : Event<ID, out UserID>, ID, out UserID>(
     @Id private val id: ID,
-    open val sequenceNum: Long?,
     open val version: Int,
     open val createdAt: LocalDateTime,
     open val createdBy: UserID,
@@ -37,9 +35,9 @@ open class EventEntity<E : Event<ID, out UserID>, ID, out UserID>(
         eventClass.permittedSubclasses
             .first { it.simpleName == eventType }
             .let {
+                @Suppress("UNCHECKED_CAST")
                 it.getConstructor(
                     UUID::class.java,
-                    Long::class.javaObjectType,
                     Int::class.javaObjectType,
                     LocalDateTime::class.java,
                     idClass,
@@ -47,7 +45,6 @@ open class EventEntity<E : Event<ID, out UserID>, ID, out UserID>(
                     JsonNode::class.java
                 ).newInstance(
                     getId(),
-                    sequenceNum,
                     version,
                     createdAt,
                     createdBy,
@@ -62,7 +59,6 @@ open class EventEntity<E : Event<ID, out UserID>, ID, out UserID>(
             .let {
                 it.primaryConstructor?.call(
                     getId(),
-                    sequenceNum,
                     version,
                     createdAt,
                     createdBy,
@@ -79,7 +75,6 @@ open class EventEntity<E : Event<ID, out UserID>, ID, out UserID>(
             eventEntityClass: KClass<EE>
         ): EE = eventEntityClass.primaryConstructor?.call(
                 event.id,
-                event.sequenceNum,
                 event.version,
                 event.createdAt,
                 event.createdBy,

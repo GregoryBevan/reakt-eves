@@ -12,7 +12,6 @@ import java.util.*
 
 sealed class ${domain}Event(
     id: UUID,
-    sequenceNum: Long?,
     version: Int,
     createdAt: LocalDateTime,
     createdBy: UUID,
@@ -20,12 +19,11 @@ sealed class ${domain}Event(
     eventType: String,
     event: JsonNode
 ) : Event<UUID, UUID>(
-    id, sequenceNum, version, createdAt, createdBy, eventType, aggregateId, event
+    id, version, createdAt, createdBy, eventType, aggregateId, event
 ) {
 
     data class ${domain}Created(
         override val id: UUID = UUID.randomUUID(),
-        override val sequenceNum: Long? = null,
         override val version: Int = 1,
         override val createdAt: LocalDateTime = nowUTC(),
         override val createdBy: UUID,
@@ -33,7 +31,6 @@ sealed class ${domain}Event(
         override val event: JsonNode
     ) : ${domain}Event(
         id,
-        sequenceNum,
         version,
         createdAt,
         createdBy,
