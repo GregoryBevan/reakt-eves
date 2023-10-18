@@ -15,9 +15,18 @@ interface JsonConvertible {
     }
 
     companion object {
-        fun <T> fromJson(json: JsonNode, expectedClass: Class<T>): T {
+
+        internal fun <T> fromJson(json: JsonNode, expectedClass: Class<T>): T {
             return try {
                 genericObjectMapper.readValue(json.toString(), expectedClass)
+            } catch (e: JsonProcessingException) {
+                throw RuntimeException("An error occurred during conversion from json", e)
+            }
+        }
+
+        inline fun <reified T> fromJson(json: JsonNode): T {
+            return try {
+                genericObjectMapper.readValue(json.toString(), T::class.java)
             } catch (e: JsonProcessingException) {
                 throw RuntimeException("An error occurred during conversion from json", e)
             }
