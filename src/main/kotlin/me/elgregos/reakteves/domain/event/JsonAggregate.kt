@@ -41,7 +41,6 @@ abstract class JsonAggregate<E : Event<ID, UserID>, ID, UserID>(
                 JsonMergePatch.fromJson(event.event).apply(agg)
             }
 
-
     /**
      * Returns the next version according to last version stored and the number
      * of new events

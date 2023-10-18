@@ -20,6 +20,11 @@ class JsonConvertibleTest {
         assertThat(JsonConvertible.fromJson(userJson, User::class.java)).isEqualTo(User())
     }
 
+    @Test
+    fun `should convert json to object using generic`() {
+        assertThat(JsonConvertible.fromJson<User>(userJson)).isEqualTo(User())
+    }
+
     data class User(
         val firstName: String = "Sarah",
         val lastName: String = "Joute",

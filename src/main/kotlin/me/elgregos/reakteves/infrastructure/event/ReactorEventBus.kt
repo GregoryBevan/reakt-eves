@@ -69,6 +69,6 @@ abstract class ReactorEventSubscriber<IdType, UserID>(private val reactorEventBu
     }
 
     inline fun <reified T: JsonConvertible, IdType, UserID> mergeJsonPatch(previous: T, event: Event<IdType, UserID>): T =
-        JsonConvertible.fromJson(JsonMergePatch.fromJson(event.event).apply(previous.toJson()), T::class.java)
+        JsonConvertible.fromJson(JsonMergePatch.fromJson(event.event).apply(previous.toJson()))
 
 }
