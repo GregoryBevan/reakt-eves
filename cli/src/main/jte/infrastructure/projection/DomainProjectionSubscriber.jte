@@ -44,5 +44,5 @@ class ${domain}ProjectionSubscriber(
     }
 
     private fun create${domain}(event: ${domain}Created) =
-        ${domainPrefix}ProjectionStore.insert(fromJson(event.event, ${domain}::class.java))
+        ${domainPrefix}ProjectionStore.insert(fromJson(event.event))
 }

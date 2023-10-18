@@ -58,7 +58,7 @@ internal class DomainProjectionSubscriberGeneratorTest: GeneratorTest() {
                 }
             
                 private fun createGame(event: GameCreated) =
-                    gameProjectionStore.insert(fromJson(event.event, Game::class.java))
+                    gameProjectionStore.insert(fromJson(event.event))
             }
         """.trimIndent())
     }
