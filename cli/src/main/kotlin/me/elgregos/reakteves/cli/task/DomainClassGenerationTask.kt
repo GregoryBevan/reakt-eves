@@ -28,8 +28,8 @@ abstract class DomainClassGenerationTask : DefaultTask() {
     @TaskAction
     fun perform() {
         val inputHandler = services.get(UserInputHandler::class.java)
-        val domain = inputHandler.askQuestion("Set the domain entity name in camel case", "Game")
-        val domainPackage = inputHandler.askQuestion("Set the domain package", defaultDomainPackage(domain))
+        val domain = inputHandler.askUser { it.askQuestion("Set the domain entity name in camel case", "Game") }.get()
+        val domainPackage = inputHandler.askUser { it.askQuestion("Set the domain package", defaultDomainPackage(domain)) }.get()
 
         val kotlinSourcePath = project.extensions.getByType(SourceSetContainer::class.java)
             .getByName(SourceSet.MAIN_SOURCE_SET_NAME).allJava.srcDirs.find { it.endsWith("kotlin") }?.toPath()
