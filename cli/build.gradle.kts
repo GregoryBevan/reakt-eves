@@ -3,8 +3,8 @@ import gg.jte.ContentType
 plugins {
     id("kotlin-conventions")
     `java-gradle-plugin`
-    id("com.gradle.plugin-publish") version "1.1.0"
-    id("gg.jte.gradle").version("3.1.0")
+    id("com.gradle.plugin-publish") version "1.3.0"
+    id("gg.jte.gradle").version("3.1.15")
 }
 
 repositories {
@@ -15,17 +15,17 @@ repositories {
 }
 
 dependencies {
-    implementation("gg.jte:jte:3.1.0")
+    implementation("gg.jte:jte:3.1.15")
     implementation("org.springframework.boot:spring-boot-starter-webflux") {
         version {
-            strictly("[2.7.15,)")
-            prefer("3.1.3")
+            strictly("[2.7.18,)")
+            prefer("3.4.1")
         }
     }
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc") {
         version {
-            strictly("[2.7.15,)")
-            prefer("3.1.3")
+            strictly("[2.7.18,)")
+            prefer("3.4.1")
         }
     }
     "integrationTestImplementation"(gradleTestKit())
