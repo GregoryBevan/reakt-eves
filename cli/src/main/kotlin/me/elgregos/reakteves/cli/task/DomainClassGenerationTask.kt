@@ -31,7 +31,7 @@ abstract class DomainClassGenerationTask : DefaultTask() {
         val domain = inputHandler.askUser { it.askQuestion("Set the domain entity name in camel case", "Game") }.get()
         val domainPackage = inputHandler.askUser { it.askQuestion("Set the domain package", defaultDomainPackage(domain)) }.get()
 
-        val kotlinSourcePath = project.extensions.getByType(SourceSetContainer::class.java)
+        val kotlinSourcePath = (project.extensions.findByName("sourceSets") as SourceSetContainer)
             .getByName(SourceSet.MAIN_SOURCE_SET_NAME).allJava.srcDirs.find { it.endsWith("kotlin") }?.toPath()
             ?: throw Exception("Unable to fin kotlin sourceset path")
 
