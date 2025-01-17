@@ -21,22 +21,35 @@ import org.gradle.api.internal.tasks.userinput.UserInputHandler
 import org.gradle.api.tasks.SourceSet
 import org.gradle.api.tasks.SourceSetContainer
 import org.gradle.api.tasks.TaskAction
+import java.nio.file.Path
 
 
 abstract class DomainClassGenerationTask : DefaultTask() {
 
+    private var projectDirPath: String
+    private var projectGroup: String
+    private var rootProjectName: String
+    private var kotlinSourcePath: Path
+
+    private lateinit var domain: String
+    private lateinit var domainPackage: String
+
+    init {
+        kotlinSourcePath = (project.extensions.findByName("sourceSets") as SourceSetContainer)
+            .getByName(SourceSet.MAIN_SOURCE_SET_NAME).allJava.srcDirs.find { it.endsWith("kotlin") }?.toPath()
+            ?: throw Exception("Unable to fin kotlin sourceset path")
+        projectDirPath = project.projectDir.path
+        projectGroup = "${project.group}"
+        rootProjectName = project.rootProject.name
+    }
+
     @TaskAction
     fun perform() {
         val inputHandler = services.get(UserInputHandler::class.java)
-        val domain = inputHandler.askUser { it.askQuestion("Set the domain entity name in camel case", "Game") }.get()
-        val domainPackage = inputHandler.askUser { it.askQuestion("Set the domain package", defaultDomainPackage(domain)) }.get()
-
-        val kotlinSourcePath = (project.extensions.findByName("sourceSets") as SourceSetContainer)
-            .getByName(SourceSet.MAIN_SOURCE_SET_NAME).allJava.srcDirs.find { it.endsWith("kotlin") }?.toPath()
-            ?: throw Exception("Unable to fin kotlin sourceset path")
-
+        domain = inputHandler.askUser { it.askQuestion("Set the domain entity name in camel case", "Game") }.get()
+        domainPackage = inputHandler.askUser { it.askQuestion("Set the domain package", defaultDomainPackage(domain)) }.get()
         val templateParams = templateParams(domain, domainPackage)
-        generateDomainChangeLog(project, templateParams)
+        generateDomainChangeLog(projectDirPath, projectGroup, templateParams)
         generateDomainController(kotlinSourcePath, domain, domainPackage, templateParams)
         generateDomainCommand(kotlinSourcePath, domain, domainPackage, templateParams)
         generateDomainCommandHandler(kotlinSourcePath, domain, domainPackage, templateParams)
@@ -55,5 +68,5 @@ abstract class DomainClassGenerationTask : DefaultTask() {
     }
 
     private fun defaultDomainPackage(domain: String) =
-        "${project.group}.${Regex("[^A-Za-z0-9 ]").replace(project.rootProject.name, "")}.${domain.lowercase()}"
+        "${projectGroup}.${Regex("[^A-Za-z0-9 ]").replace(rootProjectName, "")}.${domain.lowercase()}"
 }
