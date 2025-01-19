@@ -19,6 +19,7 @@ internal class DomainCommandGeneratorTest: GeneratorTest() {
 
             import me.elgregos.reakteves.application.Command
             import me.elgregos.reakteves.libs.nowUTC
+            import me.elgregos.reakteves.libs.uuidV7
             import java.time.LocalDateTime
             import java.util.*
             
