@@ -18,7 +18,7 @@ internal class DomainEventRepositoryGeneratorTest : GeneratorTest() {
             """
             package com.elgregos.escape.camp.game.domain.event
 
-            import me.elgregos.escapecamp.game.infrastructure.event.GameEventEntity
+            import com.elgregos.escape.camp.game.infrastructure.event.GameEventEntity
             import me.elgregos.reakteves.infrastructure.event.EventEntityRepository
             import java.util.*
             

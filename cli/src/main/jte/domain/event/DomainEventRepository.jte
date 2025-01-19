@@ -2,7 +2,7 @@
 @param String domain
 package ${domainPackage}.domain.event
 
-import me.elgregos.escapecamp.game.infrastructure.event.${domain}EventEntity
+import ${domainPackage}.infrastructure.event.${domain}EventEntity
 import me.elgregos.reakteves.infrastructure.event.EventEntityRepository
 import java.util.*
 
