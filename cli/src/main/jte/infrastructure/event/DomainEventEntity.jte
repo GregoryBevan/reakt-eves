@@ -17,7 +17,7 @@ data class ${domain}EventEntity(
     override val createdAt: LocalDateTime,
     override val createdBy: UUID,
     override val eventType: String,
-    override val aggregateId: UUID = UUID.randomUUID(),
+    override val aggregateId: UUID,
     override val event: JsonNode
 ) : EventEntity<${domain}Event, UUID, UUID>(
     id,

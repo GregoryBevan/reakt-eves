@@ -4,14 +4,16 @@
 package ${domainPackage}.domain.event
 
 import com.fasterxml.jackson.databind.JsonNode
+import ${domainPackage}.domain.entity.${domain}
 import me.elgregos.reakteves.domain.event.Event
 import me.elgregos.reakteves.libs.genericObjectMapper
 import me.elgregos.reakteves.libs.nowUTC
+import me.elgregos.reakteves.libs.uuidV7
 import java.time.LocalDateTime
 import java.util.*
 
 sealed class ${domain}Event(
-    id: UUID,
+    id: UUID = uuidV7(),
     version: Int,
     createdAt: LocalDateTime,
     createdBy: UUID,
@@ -23,29 +25,24 @@ sealed class ${domain}Event(
 ) {
 
     data class ${domain}Created(
-        override val id: UUID = UUID.randomUUID(),
         override val version: Int = 1,
         override val createdAt: LocalDateTime = nowUTC(),
         override val createdBy: UUID,
         val ${domainPrefix}Id: UUID,
         override val event: JsonNode
     ) : ${domain}Event(
-        id,
-        version,
-        createdAt,
-        createdBy,
-        ${domainPrefix}Id,
-        ${domain}Created::class.simpleName!!,
-        event
+        version = version,
+        createdAt = createdAt,
+        createdBy = createdBy,
+        aggregateId = ${domainPrefix}Id,
+        eventType = ${domainPrefix}Created::class.simpleName!!,
+        event = event
     ) {
-
-        constructor(${domainPrefix}Id: UUID, createdBy: UUID, createdAt: LocalDateTime) : this(
-            ${domainPrefix}Id = ${domainPrefix}Id,
-            createdAt = createdAt,
-            createdBy = createdBy,
-            event = genericObjectMapper.createObjectNode()
-                .put("id", "$${domainPrefix}Id")
-                .put("createdAt", "$createdAt")
-                .put("createdBy", "$createdBy"))
+        constructor(${domainPrefix}: ${domain}) : this(
+            ${domainPrefix}Id = ${domainPrefix}.id,
+            createdAt = ${domainPrefix}.createdAt,
+            createdBy = ${domainPrefix}.createdBy,
+            event = genericObjectMapper.readTree(genericObjectMapper.writeValueAsString(${domainPrefix}))
+        )
     }
 }
