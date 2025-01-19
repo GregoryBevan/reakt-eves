@@ -5,12 +5,17 @@ import java.nio.file.Paths
 import kotlin.io.path.appendText
 import kotlin.io.path.createDirectories
 import kotlin.io.path.createFile
+import kotlin.io.path.notExists
 
 fun generateDomainChangeLog(projectDirPath: String, projectGroup: String, templateParams: Map<String, String>) {
     Paths.get("$projectDirPath/src/main/resources/db/changelog")
-        .createDirectories()
+        .also {
+            if(it.notExists()) it.createDirectories()
+        }
         .resolve("db-changelog.sql")
-        .createFile()
+        .also {
+            if(it.notExists()) it.createFile()
+        }
         .appendText(
             """
                 
