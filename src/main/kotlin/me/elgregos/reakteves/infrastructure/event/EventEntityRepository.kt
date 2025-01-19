@@ -10,5 +10,5 @@ interface EventEntityRepository<EE: EventEntity<E, ID, UserID>, E: Event<ID, Use
 
     fun insertAll(eventEntities: List<EE>) = saveAll(eventEntities.onEach { it.markNew() })
 
-    fun findByAggregateIdOrderBySequenceNum(aggregateId: ID): Flux<EE>
+    fun findByAggregateIdOrderById(aggregateId: ID): Flux<EE>
 }

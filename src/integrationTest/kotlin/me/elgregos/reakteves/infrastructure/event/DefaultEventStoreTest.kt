@@ -8,6 +8,7 @@ import me.elgregos.reakteves.domain.event.FakeEvent
 import me.elgregos.reakteves.domain.event.fakeCreatedEvent
 import me.elgregos.reakteves.domain.event.fakeUpdatedEvent
 import me.elgregos.reakteves.libs.genericObjectMapper
+import me.elgregos.reakteves.libs.uuidV7
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import reactor.test.StepVerifier
@@ -21,7 +22,7 @@ internal class DefaultEventStoreTest: BaseIntegrationTest() {
     @Test
     fun `should save an event`() {
         val fakeCreated = fakeCreatedEvent(
-            UUID.randomUUID(),
+            uuidV7(),
             1,
             UUID.randomUUID(),
             UUID.randomUUID(),
@@ -68,21 +69,21 @@ internal class DefaultEventStoreTest: BaseIntegrationTest() {
     @Test
     fun `should load all events for a given aggregate id`() {
         val fakeCreated1 = fakeCreatedEvent(
-            UUID.randomUUID(),
+            uuidV7(),
             1,
             UUID.randomUUID(),
             UUID.randomUUID(),
             genericObjectMapper.createObjectNode().put("root", "definedValue")
         )
         val fakeUpdated1 = fakeUpdatedEvent(
-            UUID.randomUUID(),
+            uuidV7(),
             2,
             fakeCreated1.createdBy,
             fakeCreated1.aggregateId,
             genericObjectMapper.createObjectNode().put("root", "updatedValue")
         )
         val fakeCreated2 = fakeCreatedEvent(
-            UUID.randomUUID(),
+            uuidV7(),
             1,
             UUID.randomUUID(),
             UUID.randomUUID(),
@@ -93,8 +94,8 @@ internal class DefaultEventStoreTest: BaseIntegrationTest() {
             .collectList()
             .flatMapMany { fakeEventStore.loadAllEvents(fakeCreated1.aggregateId) }
             .`as`(StepVerifier::create)
-            .assertNext {  assertThat(it).isEqualTo(fakeCreated1.copy(sequenceNum = it.sequenceNum)) }
-            .assertNext {  assertThat(it).isEqualTo(fakeUpdated1.copy(sequenceNum = it.sequenceNum)) }
+            .assertNext {  assertThat(it).isEqualTo(fakeCreated1) }
+            .assertNext {  assertThat(it).isEqualTo(fakeUpdated1) }
             .verifyComplete()
     }
 }

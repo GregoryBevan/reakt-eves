@@ -10,7 +10,6 @@ import java.util.*
 @Table(name = "fake_event")
 data class FakeEventEntity(
     @get:JvmName("id") val id: UUID,
-    override val sequenceNum: Long? = null,
     override val version: Int = 1,
     override val createdAt: LocalDateTime = nowUTC(),
     override val createdBy: UUID,
@@ -19,7 +18,6 @@ data class FakeEventEntity(
     override val event: JsonNode
 ) : EventEntity<FakeEvent, UUID, UUID>(
     id,
-    sequenceNum,
     version,
     createdAt,
     createdBy,

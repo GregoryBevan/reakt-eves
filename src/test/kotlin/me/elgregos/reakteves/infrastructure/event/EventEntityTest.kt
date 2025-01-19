@@ -15,7 +15,7 @@ class EventEntityTest {
         val eventId = UUID.randomUUID()
         val event = genericObjectMapper.createObjectNode().put("field1", "value1")
         val fakeCreated = fakeCreatedEvent(eventId, 1, UUID.randomUUID(), UUID.randomUUID(), event)
-        val fakeEventEntity = FakeEventEntity(fakeCreated.eventId, fakeCreated.sequenceNum, fakeCreated.version, fakeCreated.createdAt, fakeCreated.createdBy, fakeCreated.eventType, fakeCreated.aggregateId, fakeCreated.event)
+        val fakeEventEntity = FakeEventEntity(fakeCreated.eventId, fakeCreated.version, fakeCreated.createdAt, fakeCreated.createdBy, fakeCreated.eventType, fakeCreated.aggregateId, fakeCreated.event)
         assertThat(fakeEventEntity.toEvent(FakeEvent::class)).isEqualTo(fakeCreated)
     }
 
@@ -24,7 +24,7 @@ class EventEntityTest {
         val eventId = UUID.randomUUID()
         val event = genericObjectMapper.createObjectNode().put("field1", "value1")
         val fakeCreated = fakeCreatedEvent(eventId, 1, UUID.randomUUID(), UUID.randomUUID(), event)
-        val fakeEventEntity = FakeEventEntity(fakeCreated.eventId, fakeCreated.sequenceNum, fakeCreated.version, fakeCreated.createdAt, fakeCreated.createdBy, fakeCreated.eventType, fakeCreated.aggregateId, fakeCreated.event)
+        val fakeEventEntity = FakeEventEntity(fakeCreated.eventId, fakeCreated.version, fakeCreated.createdAt, fakeCreated.createdBy, fakeCreated.eventType, fakeCreated.aggregateId, fakeCreated.event)
         assertThat(EventEntity.fromEvent(fakeCreated, FakeEventEntity::class)).isEqualTo(fakeEventEntity)
     }
 }

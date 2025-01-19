@@ -5,6 +5,7 @@ import assertk.assertions.isEqualTo
 import io.mockk.every
 import io.mockk.mockk
 import me.elgregos.reakteves.libs.genericObjectMapper
+import me.elgregos.reakteves.libs.uuidV7
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import reactor.test.StepVerifier
@@ -24,7 +25,7 @@ internal class AggregateTest {
     @Test
     fun `should add one new event`() {
         val aggregateId = UUID.fromString("63a71133-30c0-4de8-ad4b-da05ebf98e15")
-        val eventId = UUID.fromString("b7abd716-fbb2-491e-aa4e-5f5174e889ad")
+        val eventId = uuidV7()
         val createdBy = UUID.fromString("ff7474d7-c91d-458a-b7a1-1a0a67a430f3")
 
         every { eventStore.loadAllEvents(aggregateId) } returns Flux.empty()
@@ -48,8 +49,8 @@ internal class AggregateTest {
     fun `should add two new event with correct versions`() {
         val aggregateId = UUID.fromString("63a71133-30c0-4de8-ad4b-da05ebf98e15")
         val createdBy = UUID.fromString("ff7474d7-c91d-458a-b7a1-1a0a67a430f3")
-        val eventId1 = UUID.fromString("b7abd716-fbb2-491e-aa4e-5f5174e889ad")
-        val eventId2 = UUID.fromString("23bee42c-801c-41e3-b898-4a23f269dec5")
+        val eventId1 = uuidV7()
+        val eventId2 = uuidV7()
         every { eventStore.loadAllEvents(aggregateId) } returns Flux.empty()
 
         val aggregateExample = AggregateExample(aggregateId, eventStore)
@@ -172,9 +173,9 @@ internal class AggregateTest {
 
     private fun storedEvents(aggregateId: UUID): Flux<FakeEvent> = Flux.fromIterable(
         listOf(
-            fakeCreatedEvent(UUID.randomUUID(),1, UUID.fromString("ff7474d7-c91d-458a-b7a1-1a0a67a430f3"), aggregateId, genericObjectMapper.createObjectNode().put("field1", "value1")),
-            fakeCreatedEvent(UUID.randomUUID(),2, UUID.fromString("ff7474d7-c91d-458a-b7a1-1a0a67a430f3"), aggregateId, genericObjectMapper.createObjectNode().put("field2", "value2")),
-            fakeCreatedEvent(UUID.randomUUID(), 3, UUID.fromString("ff7474d7-c91d-458a-b7a1-1a0a67a430f3"), aggregateId, genericObjectMapper.createObjectNode().put("field1", "value3"))
+            fakeCreatedEvent(uuidV7(),1, UUID.fromString("ff7474d7-c91d-458a-b7a1-1a0a67a430f3"), aggregateId, genericObjectMapper.createObjectNode().put("field1", "value1")),
+            fakeCreatedEvent(uuidV7(),2, UUID.fromString("ff7474d7-c91d-458a-b7a1-1a0a67a430f3"), aggregateId, genericObjectMapper.createObjectNode().put("field2", "value2")),
+            fakeCreatedEvent(uuidV7(), 3, UUID.fromString("ff7474d7-c91d-458a-b7a1-1a0a67a430f3"), aggregateId, genericObjectMapper.createObjectNode().put("field1", "value3"))
         )
     )
 }

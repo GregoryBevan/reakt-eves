@@ -13,7 +13,6 @@ import kotlin.reflect.full.primaryConstructor
 
 open class ProjectionEntity<DE : DomainEntity<ID, UserID>, ID, UserID>(
     @Id private val id: ID,
-    open val sequenceNum: Long? = null,
     open val version: Int,
     open val createdAt: LocalDateTime,
     open val createdBy: UserID,
@@ -41,10 +40,8 @@ open class ProjectionEntity<DE : DomainEntity<ID, UserID>, ID, UserID>(
         fun <DE : DomainEntity<ID, UserID>, PE : ProjectionEntity<DE, ID, UserID>, ID, UserID> fromDomainEntity(
             domainEntity: DE,
             projectionEntityClass: KClass<PE>,
-            sequenceNum: Long? = null,
         ): PE = projectionEntityClass.primaryConstructor?.call(
             domainEntity.id,
-            sequenceNum,
             domainEntity.version,
             domainEntity.createdAt,
             domainEntity.createdBy,

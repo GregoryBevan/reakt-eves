@@ -8,7 +8,6 @@ import java.util.*
 
 sealed class FakeEvent(
     id: UUID,
-    sequenceNum: Long?,
     version: Int,
     createdAt: LocalDateTime,
     createdBy: UUID,
@@ -16,12 +15,11 @@ sealed class FakeEvent(
     aggregateId: UUID,
     event: JsonNode
 ) : Event<UUID, UUID>(
-    id, sequenceNum, version, createdAt, createdBy, eventType, aggregateId, event
+    id, version, createdAt, createdBy, eventType, aggregateId, event
 ), JsonConvertible {
 
     data class FakeCreated(
         val eventId: UUID = UUID.randomUUID(),
-        override val sequenceNum: Long? = null,
         override val version: Int,
         override val createdAt: LocalDateTime = nowUTC(),
         override val createdBy: UUID,
@@ -29,7 +27,6 @@ sealed class FakeEvent(
         override val event: JsonNode
     ) : FakeEvent(
         eventId,
-        sequenceNum,
         version,
         createdAt,
         createdBy,
@@ -40,7 +37,6 @@ sealed class FakeEvent(
 
     data class FakeUpdated(
         val eventId: UUID = UUID.randomUUID(),
-        override val sequenceNum: Long? = null,
         override val version: Int,
         override val createdAt: LocalDateTime = nowUTC(),
         override val createdBy: UUID,
@@ -48,7 +44,6 @@ sealed class FakeEvent(
         override val event: JsonNode
     ) : FakeEvent(
         eventId,
-        sequenceNum,
         version,
         createdAt,
         createdBy,

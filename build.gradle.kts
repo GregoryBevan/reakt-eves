@@ -1,7 +1,7 @@
 plugins {
     id("kotlin-conventions")
-    kotlin("plugin.spring") version "2.0.21"
-    id("io.spring.dependency-management") version "1.1.7"
+    kotlin("plugin.spring") version "1.9.10"
+    id("io.spring.dependency-management") version "1.1.3"
     `java-library`
     `maven-publish`
     signing
@@ -68,6 +68,7 @@ dependencies {
         }
     }
     implementation("org.postgresql:r2dbc-postgresql:1.0.7.RELEASE")
+    implementation("com.github.f4b6a3:uuid-creator:6.0.0")
     annotationProcessor("org.springframework.boot:spring-boot-autoconfigure-processor")
 
     testImplementation(kotlin("test"))
