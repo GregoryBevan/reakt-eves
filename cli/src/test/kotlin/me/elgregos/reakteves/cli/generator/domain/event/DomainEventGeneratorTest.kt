@@ -49,7 +49,7 @@ internal class DomainEventGeneratorTest: GeneratorTest() {
                     createdAt = createdAt,
                     createdBy = createdBy,
                     aggregateId = gameId,
-                    eventType = gameCreated::class.simpleName!!,
+                    eventType = GameCreated::class.simpleName!!,
                     event = event
                 ) {
                     constructor(game: Game) : this(

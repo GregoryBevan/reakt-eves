@@ -35,7 +35,7 @@ sealed class ${domain}Event(
         createdAt = createdAt,
         createdBy = createdBy,
         aggregateId = ${domainPrefix}Id,
-        eventType = ${domainPrefix}Created::class.simpleName!!,
+        eventType = ${domain}Created::class.simpleName!!,
         event = event
     ) {
         constructor(${domainPrefix}: ${domain}) : this(
