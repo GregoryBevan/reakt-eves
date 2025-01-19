@@ -17,7 +17,7 @@ internal class DomainCommandHandlerGeneratorTest: GeneratorTest() {
         assertThat(output.toString()).isEqualTo("""
             package com.elgregos.escape.camp.game.application
 
-            import com.elgregos.escape.camp.game.application.GameCommand.*
+            import com.elgregos.escape.camp.game.application.GameCommand.CreateGame
             import com.elgregos.escape.camp.game.domain.event.GameAggregate
             import com.elgregos.escape.camp.game.domain.event.GameEvent
             import me.elgregos.reakteves.domain.event.EventStore
@@ -39,8 +39,8 @@ internal class DomainCommandHandlerGeneratorTest: GeneratorTest() {
                         .doOnNext { gameEventPublisher.publish(it) }
 
                 private fun createGame(gameCommand: CreateGame) =
-                    GameAggregate(gameCommand.gameId, gameCommand.createdBy, gameEventStore)
-                        .createGame(gameCommand.createdAt)
+                    GameAggregate(gameCommand.gameId, gameEventStore)
+                        .createGame(gameCommand.game)
             
             }
         """.trimIndent())

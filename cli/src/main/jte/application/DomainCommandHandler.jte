@@ -3,7 +3,7 @@
 @param String domainPrefix
 package ${domainPackage}.application
 
-import ${domainPackage}.application.${domain}Command.*
+import ${domainPackage}.application.${domain}Command.Create${domain}
 import ${domainPackage}.domain.event.${domain}Aggregate
 import ${domainPackage}.domain.event.${domain}Event
 import me.elgregos.reakteves.domain.event.EventStore
@@ -25,7 +25,7 @@ class ${domain}CommandHandler(
             .doOnNext { ${domainPrefix}EventPublisher.publish(it) }
 
     private fun create${domain}(${domainPrefix}Command: Create${domain}) =
-        ${domain}Aggregate(${domainPrefix}Command.${domainPrefix}Id, ${domainPrefix}Command.createdBy, ${domainPrefix}EventStore)
-            .create${domain}(${domainPrefix}Command.createdAt)
+        ${domain}Aggregate(${domainPrefix}Command.${domainPrefix}Id, ${domainPrefix}EventStore)
+            .create${domain}(${domainPrefix}Command.${domainPrefix})
 
 }

@@ -22,6 +22,10 @@ internal class DomainControllerGeneratorTest: GeneratorTest() {
             import com.elgregos.escape.camp.game.application.GameCommand
             import com.elgregos.escape.camp.game.application.GameCommandHandler
             import com.elgregos.escape.camp.game.application.GameProjectionService
+            import com.elgregos.escape.camp.game.domain.Game
+            import me.elgregos.reakteves.libs.nowUTC
+            import me.elgregos.reakteves.libs.uuidV5
+            import me.elgregos.reakteves.libs.uuidV7
             import org.springframework.http.HttpStatus
             import reactor.kotlin.core.publisher.toMono
             import java.util.*
@@ -46,7 +50,7 @@ internal class DomainControllerGeneratorTest: GeneratorTest() {
                 @PostMapping
                 @ResponseStatus(HttpStatus.CREATED)
                 fun createGame() =
-                    gameCommandHandler.handle(GameCommand.CreateGame(createdBy = UUID.randomUUID()))
+                    gameCommandHandler.handle(GameCommand.CreateGame(Game(id = uuidV7(), createdAt = nowUTC(), createdBy = uuidV5("creator"))))
                         .toMono()
                         .map { mapOf(Pair("gameId", it.aggregateId)) }
             

@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.*
 import ${domainPackage}.application.${domain}Command
 import ${domainPackage}.application.${domain}CommandHandler
 import ${domainPackage}.application.${domain}ProjectionService
+import ${domainPackage}.domain.${domain}
+import me.elgregos.reakteves.libs.nowUTC
+import me.elgregos.reakteves.libs.uuidV5
+import me.elgregos.reakteves.libs.uuidV7
 import org.springframework.http.HttpStatus
 import reactor.kotlin.core.publisher.toMono
 import java.util.*
@@ -33,7 +37,7 @@ class ${domain}Controller(
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun create${domain}() =
-        ${domainPrefix}CommandHandler.handle(${domain}Command.Create${domain}(createdBy = UUID.randomUUID()))
+        ${domainPrefix}CommandHandler.handle(${domain}Command.Create${domain}(${domain}(id = uuidV7(), createdAt = nowUTC(), createdBy = uuidV5("creator"))))
             .toMono()
             .map { mapOf(Pair("${domainPrefix}Id", it.aggregateId)) }
 

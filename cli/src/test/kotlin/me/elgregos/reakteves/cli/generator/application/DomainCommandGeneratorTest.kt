@@ -17,19 +17,15 @@ internal class DomainCommandGeneratorTest: GeneratorTest() {
         assertThat(output.toString()).isEqualTo("""
             package com.elgregos.escape.camp.game.application
 
+            import com.elgregos.escape.camp.game.domain.entity.Game
             import me.elgregos.reakteves.application.Command
-            import me.elgregos.reakteves.libs.nowUTC
-            import me.elgregos.reakteves.libs.uuidV7
-            import java.time.LocalDateTime
             import java.util.*
             
             sealed class GameCommand(open val gameId: UUID) : Command {
             
                 data class CreateGame(
-                    override val gameId: UUID = uuidv7(),
-                    val createdBy: UUID,
-                    val createdAt: LocalDateTime = nowUTC()
-                ) : GameCommand(gameId)
+                    val game: Game
+                ) : GameCommand(gameId = game.id)
             
             }
         """.trimIndent())
