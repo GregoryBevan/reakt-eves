@@ -25,7 +25,7 @@ internal class DomainCommandGeneratorTest: GeneratorTest() {
             sealed class GameCommand(open val gameId: UUID) : Command {
             
                 data class CreateGame(
-                    override val gameId: UUID = UUID.randomUUID(),
+                    override val gameId: UUID = uuidv7(),
                     val createdBy: UUID,
                     val createdAt: LocalDateTime = nowUTC()
                 ) : GameCommand(gameId)
