@@ -22,12 +22,11 @@ internal class DomainEventGeneratorTest: GeneratorTest() {
             import me.elgregos.reakteves.domain.event.Event
             import me.elgregos.reakteves.libs.genericObjectMapper
             import me.elgregos.reakteves.libs.nowUTC
-            import me.elgregos.reakteves.libs.uuidV7
             import java.time.LocalDateTime
             import java.util.*
 
             sealed class GameEvent(
-                id: UUID = uuidV7(),
+                id: UUID,
                 version: Int,
                 createdAt: LocalDateTime,
                 createdBy: UUID,
@@ -39,18 +38,20 @@ internal class DomainEventGeneratorTest: GeneratorTest() {
             ) {
 
                 data class GameCreated(
+                    override val id: UUID,
                     override val version: Int = 1,
                     override val createdAt: LocalDateTime = nowUTC(),
                     override val createdBy: UUID,
                     val gameId: UUID,
                     override val event: JsonNode
                 ) : GameEvent(
-                    version = version,
-                    createdAt = createdAt,
-                    createdBy = createdBy,
-                    aggregateId = gameId,
-                    eventType = GameCreated::class.simpleName!!,
-                    event = event
+                    id,
+                    version,
+                    createdAt,
+                    createdBy,
+                    gameId,
+                    GameCreated::class.simpleName!!,
+                    event
                 ) {
                     constructor(game: Game) : this(
                         gameId = game.id,
