@@ -22,6 +22,7 @@ internal class DomainEventGeneratorTest: GeneratorTest() {
             import me.elgregos.reakteves.domain.event.Event
             import me.elgregos.reakteves.libs.genericObjectMapper
             import me.elgregos.reakteves.libs.nowUTC
+            import me.elgregos.reakteves.libs.uuidV7
             import java.time.LocalDateTime
             import java.util.*
 
@@ -54,6 +55,7 @@ internal class DomainEventGeneratorTest: GeneratorTest() {
                     event
                 ) {
                     constructor(game: Game) : this(
+                        id = uuidV7(),
                         gameId = game.id,
                         createdAt = game.createdAt,
                         createdBy = game.createdBy,

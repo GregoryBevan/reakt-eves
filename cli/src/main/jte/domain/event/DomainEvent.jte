@@ -8,6 +8,7 @@ import ${domainPackage}.domain.entity.${domain}
 import me.elgregos.reakteves.domain.event.Event
 import me.elgregos.reakteves.libs.genericObjectMapper
 import me.elgregos.reakteves.libs.nowUTC
+import me.elgregos.reakteves.libs.uuidV7
 import java.time.LocalDateTime
 import java.util.*
 
@@ -40,6 +41,7 @@ sealed class ${domain}Event(
         event
     ) {
         constructor(${domainPrefix}: ${domain}) : this(
+            id = uuidV7(),
             ${domainPrefix}Id = ${domainPrefix}.id,
             createdAt = ${domainPrefix}.createdAt,
             createdBy = ${domainPrefix}.createdBy,
