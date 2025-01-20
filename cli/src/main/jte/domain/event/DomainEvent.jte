@@ -8,12 +8,11 @@ import ${domainPackage}.domain.entity.${domain}
 import me.elgregos.reakteves.domain.event.Event
 import me.elgregos.reakteves.libs.genericObjectMapper
 import me.elgregos.reakteves.libs.nowUTC
-import me.elgregos.reakteves.libs.uuidV7
 import java.time.LocalDateTime
 import java.util.*
 
 sealed class ${domain}Event(
-    id: UUID = uuidV7(),
+    id: UUID,
     version: Int,
     createdAt: LocalDateTime,
     createdBy: UUID,
@@ -25,18 +24,20 @@ sealed class ${domain}Event(
 ) {
 
     data class ${domain}Created(
+        override val id: UUID,
         override val version: Int = 1,
         override val createdAt: LocalDateTime = nowUTC(),
         override val createdBy: UUID,
         val ${domainPrefix}Id: UUID,
         override val event: JsonNode
     ) : ${domain}Event(
-        version = version,
-        createdAt = createdAt,
-        createdBy = createdBy,
-        aggregateId = ${domainPrefix}Id,
-        eventType = ${domain}Created::class.simpleName!!,
-        event = event
+        id,
+        version,
+        createdAt,
+        createdBy,
+        ${domainPrefix}Id,
+        ${domain}Created::class.simpleName!!,
+        event
     ) {
         constructor(${domainPrefix}: ${domain}) : this(
             ${domainPrefix}Id = ${domainPrefix}.id,
