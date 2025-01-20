@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*
 import ${domainPackage}.application.${domain}Command
 import ${domainPackage}.application.${domain}CommandHandler
 import ${domainPackage}.application.${domain}ProjectionService
-import ${domainPackage}.domain.${domain}
+import ${domainPackage}.domain.entity.${domain}
 import me.elgregos.reakteves.libs.nowUTC
 import me.elgregos.reakteves.libs.uuidV5
 import me.elgregos.reakteves.libs.uuidV7

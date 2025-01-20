@@ -22,7 +22,7 @@ internal class DomainControllerGeneratorTest: GeneratorTest() {
             import com.elgregos.escape.camp.game.application.GameCommand
             import com.elgregos.escape.camp.game.application.GameCommandHandler
             import com.elgregos.escape.camp.game.application.GameProjectionService
-            import com.elgregos.escape.camp.game.domain.Game
+            import com.elgregos.escape.camp.game.domain.entity.Game
             import me.elgregos.reakteves.libs.nowUTC
             import me.elgregos.reakteves.libs.uuidV5
             import me.elgregos.reakteves.libs.uuidV7
